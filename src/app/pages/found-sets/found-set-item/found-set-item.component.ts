@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './found-set-item.component.css'
 })
 export class FoundSetItemComponent {
-    //House Of Cards
+
     cards : any = ['A','B','C'];
 }
