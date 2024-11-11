@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './found-set-item.component.css'
 })
 export class FoundSetItemComponent {
-
+    cards : any = ['A','B','C'];
 }
