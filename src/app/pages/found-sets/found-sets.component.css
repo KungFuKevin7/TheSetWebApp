@@ -1,0 +1,7 @@
+.container-stats {
+  border-radius: 20px;
+  border: 1px solid;
+
+  border-image: linear-gradient(to bottom, #000000 0%, #FFFFFF 100%) 0.5;
+  padding: 10px;
+}
