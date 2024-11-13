@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {GameHistoryComponent} from "../game-history/game-history.component";
-import {GamePageComponent} from '../game-page/game-page.component';
 import {PlayingCardComponent} from '../playing-card/playing-card.component';
 
 @Component({
@@ -8,7 +7,6 @@ import {PlayingCardComponent} from '../playing-card/playing-card.component';
   standalone: true,
   imports: [
     GameHistoryComponent,
-    GamePageComponent,
     PlayingCardComponent
   ],
   templateUrl: './playing-table.component.html',
