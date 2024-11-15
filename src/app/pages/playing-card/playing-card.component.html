@@ -1,9 +1,13 @@
-<div class="card-shape text-center">
-  <div class="img-inside-card">
-    <img ngSrc="/assets/golf_vol_groen.png" alt="Card image icon" height="29" width="72"/>
-    <br>
-    <img ngSrc="/assets/golf_vol_groen.png" alt="Card image icon" height="29" width="72"/>
-    <br>
-    <img ngSrc="/assets/golf_vol_groen.png" alt="Card image icon" height="29" width="72"/>
+<a (click)="select()">
+  <div class="card-shape text-center" [ngClass]="{selected : this.selected, 'not-selected' : !this.selected}">
+    <div class="img-inside-card">
+      @for (amount of [].constructor(playingCard.displayedAmount); track $index)
+      {
+        <img ngSrc="/assets/{{playingCard.cardImg}}"
+             alt="{{playingCard.colour}},
+                  {{playingCard.displayedAmount}}, {{playingCard.shape}}, {{playingCard.texture}}"
+             height="29" width="72"/><br>
+      }
+    </div>
   </div>
-</div>
+</a>
