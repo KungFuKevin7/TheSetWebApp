@@ -9,6 +9,6 @@ export class PlayingTableService {
   constructor(private http: HttpClient) { }
 
   getTablePlayingCards() {
-    return this.http.get("http://localhost:8080/api/cards/shuffled-cards");
+    return this.http.get("http://localhost:8080/api/cards/shuffled");
   }
 }
