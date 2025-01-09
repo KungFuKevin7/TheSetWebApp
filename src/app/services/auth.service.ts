@@ -11,11 +11,12 @@ export class AuthService {
 
   isLoggedIn : boolean = false;
 
-  login(userDetails: {username :string, password:string}): Observable<boolean> {
+  login(userDetails : {username :string, password:string}): Observable<boolean> {
     return this.http.post<any>('http://localhost:8080/api/user/login', userDetails)
       .pipe(
         map(response =>{
           //Store the generated token in the client (localstorage)
+          console.log(response);
           localStorage.setItem('jwt_token', response.token);
           this.isLoggedIn = true;
           return true;
