@@ -1,3 +1,7 @@
 .bottom-item{
   padding-top: 90px;
 }
+
+.stack-overview{
+  position: fixed;
+}

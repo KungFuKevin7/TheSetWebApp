@@ -2,14 +2,14 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-3">
-      <button>
+      <button (click)="logOut()">
         Log out
       </button>
     </div>
     <div class="col-sm-6">
       <div class="text-center">
         <div class="name">
-          Welcome, {{loggedInName}}!
+          Welcome, {{getUsername()}}!
         </div>
       </div>
     </div>
