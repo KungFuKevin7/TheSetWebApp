@@ -13,46 +13,34 @@ import { Card } from '../../../models/Card';
   templateUrl: './playing-card.component.html',
   styleUrl: './playing-card.component.css'
 })
-export class PlayingCardComponent implements OnInit, OnChanges{
-
-  @Input() cardIsSelected : boolean | undefined;
+export class PlayingCardComponent implements OnChanges {
   @Input() playingCard : Card = new Card();
   @Output() playingCardToShare  = new EventEmitter<Card>();
-
-  ngOnInit(): void {
-    //console.log(this.playingCard);
-  }
+  @Input() cardIsSelected? : boolean = undefined;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['cardIsSelected']) {
-      const previousValue = changes['cardIsSelected'].previousValue;
-      const currentValue = changes['cardIsSelected'].currentValue;
-      console.log("previousValue: " + previousValue);
-      console.log("currentValue: " + currentValue);
+    if (changes['cardIsSelected'].currentValue == true) {
+      this.cardIsSelected = false;
     }
-  }
+   }
 
   select() {
 
     //Check if already selected
     if (this.cardIsSelected) {
-      //Set selected card as false
       this.deselect();
-
-      //Share status with parent
-      this.playingCardToShare.emit(this.playingCard);
     }
     else {
-
       //Select card (background)
-      this.cardIsSelected = true;
-
-      //Share status with parent
-      this.playingCardToShare.emit(this.playingCard);
+      this.cardIsSelected  = true;
     }
+
+    //Share the playing card with parent
+    this.playingCardToShare.emit(this.playingCard);
   }
 
+  //Set selected card as false
   deselect() {
-    this.cardIsSelected = undefined;
+    this.cardIsSelected = false;
   }
 }
