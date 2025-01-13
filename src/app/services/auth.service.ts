@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 })
 export class AuthService {
 
-  isLoggedIn : boolean = false;
+  //isLoggedIn : boolean = false;
   UserAPIURL = `${API_URL}/user`;
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -22,13 +22,15 @@ export class AuthService {
           //Store the generated token in the client (localstorage)
           console.log(response);
           localStorage.setItem('username', response.username);
+          localStorage.setItem('userid', response.userid);
+          localStorage.setItem('expiresInMillis', response.expiresInMillis);
           localStorage.setItem('jwt_token', response.token);
-          this.isLoggedIn = true;
+          //this.isLoggedIn = true;
           this.router.navigate(['/play-game']);
           return true;
         }),catchError(err => {
           console.log(err);
-          this.isLoggedIn = false;
+          //this.isLoggedIn = false;
           return of(false);
         })
       );
@@ -36,20 +38,20 @@ export class AuthService {
 
   register(UserDetails : Users) {
     return this.http.post<any>(`${this.UserAPIURL}/register`, UserDetails).pipe(
-
     );
   }
 
   logout() : void{
     localStorage.clear();
-    this.isLoggedIn = false;
+    //this.isLoggedIn = false;
     this.router.navigate(['/']);
   }
-
+/*
 
   isAuthenticated() : boolean{
     return this.isLoggedIn;
   }
+*/
 
   getAuthToken(){
     return localStorage.getItem('jwt_token');
@@ -57,5 +59,24 @@ export class AuthService {
 
   getUsername() {
     return localStorage.getItem('username');
+  }
+
+  getExpirationDate(){
+    return localStorage.getItem('expiresInMillis');
+  }
+
+  tokenIsExpired() : boolean {
+
+    //If expiration is 0, then expiration is not set yet
+    if (Number(this.getExpirationDate()) === 0){
+      return true;
+    }
+
+    //return validity
+    return Number(this.getExpirationDate()) > Date.now();
+  }
+
+  getUserId(){
+    return localStorage.getItem('userid');
   }
 }

@@ -16,8 +16,13 @@ import {Card} from '../../../models/Card';
 })
 export class PlayingTableComponent implements OnInit {
 
+  //All cards on the table
   @Input() playingCards: any = [];
+
+  //Cards that are selected for review
   @Input() selectedCards : Card[] = [];
+
+  triggerDeselect : boolean | undefined;
 
   constructor(private playingTableService: PlayingTableService) {
   }
@@ -29,17 +34,23 @@ export class PlayingTableComponent implements OnInit {
   getRandomCards(){
     this.playingTableService.getTablePlayingCards()
       .subscribe( data => {
-        console.log(data);
+        //console.log(data);
         this.playingCards = data;
       });
   }
 
   addPlayingCard(card: Card){
-    this.selectedCards.push(card);
+    console.log(card);
+    if (this.selectedCards.includes(card))
+    {
+      this.removePlayingCard(card);
+    }
+    else{
+      this.selectedCards.push(card);
+    }
+
     if (this.selectedCards.length >= 3){
       this.checkSet();
-      this.playingCards.selected = false;
-      this.selectedCards = [];
     }
   }
 
@@ -48,10 +59,11 @@ export class PlayingTableComponent implements OnInit {
     //send to api for review
 
     //deselect all
+    this.selectedCards = [];
+    this.triggerDeselect = false;
 
     //change cards if set is true else continue/ throw false
-
-    console.log("is set");
+    console.log("is set!");
   }
 
   removePlayingCard(card: Card){

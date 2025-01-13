@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {Users} from '../../../models/Users';
@@ -14,11 +14,19 @@ import {FormsModule} from '@angular/forms';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   user : Users = new Users();
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,
+              private router: Router) {
   }
+
+  ngOnInit(): void {
+    if (this.authService.getAuthToken() != null) {
+      this.router.navigate(['/play-game']);
+    }
+  }
+
 
   login(){
 

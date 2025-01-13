@@ -1,13 +1,13 @@
 
 export class Users {
 
-  //userId? : number;
+  userId? : number;
   username? : string;
   password? : string;
 
   constructor(username?: string, password?: string)
   {
-    //this.userId = 0;
+    this.userId = 0;
     this.username  = username;
     this.password = password;
   }

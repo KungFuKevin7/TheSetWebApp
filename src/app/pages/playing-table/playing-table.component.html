@@ -3,8 +3,9 @@
       @for(card of playingCards; track card){
         <div class="col-sm-3">
           <app-playing-card [playingCard]="card"
-                            (selectedEvent)="addPlayingCard($event)"
-                            (deselectedEvent)="removePlayingCard($event)">
+                            (playingCardToShare)="addPlayingCard(card)"
+                            [cardIsSelected]="triggerDeselect"
+          >
 
           </app-playing-card>
         </div>
