@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {NgClass, NgOptimizedImage, NgStyle} from '@angular/common';
 import { Card } from '../../../models/Card';
 
@@ -7,16 +7,21 @@ import { Card } from '../../../models/Card';
   standalone: true,
   imports: [
     NgOptimizedImage,
-    NgStyle,
     NgClass
   ],
   templateUrl: './playing-card.component.html',
   styleUrl: './playing-card.component.css'
 })
 export class PlayingCardComponent implements OnChanges {
+
+  //Card that component is representing
   @Input() playingCard : Card = new Card();
+  //Share card with parent
   @Output() playingCardToShare  = new EventEmitter<Card>();
-  @Input() cardIsSelected? : boolean = undefined;
+  //Card is Selected
+  @Input() cardIsSelected : boolean = false;
+  //Card is hinted
+  @Input() cardIsHinted : boolean = false;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['cardIsSelected'].currentValue == true) {

@@ -1,5 +1,5 @@
 <a (click)="select()">
-  <div class="card-shape text-center" [ngClass]="{'selected' : this.cardIsSelected}">
+  <div class="card-shape text-center" [ngClass]="{'hinted': this.cardIsHinted,'selected' : this.cardIsSelected }">
     <div class="img-inside-card">
       @for (amount of [].constructor(playingCard.displayedAmount); track $index)
       {

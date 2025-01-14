@@ -22,4 +22,8 @@ export class GameHistoryComponent {
       gameId: 3,
       gameSets: 9
     }];
+
+  startNewGame() {
+    console.log("Loading New game...")
+  }
 }

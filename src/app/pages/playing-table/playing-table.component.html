@@ -3,12 +3,15 @@
       @for(card of playingCards; track card){
         <div class="col-sm-3">
           <app-playing-card [playingCard]="card"
-                            (playingCardToShare)="addPlayingCard(card)"
-                            [cardIsSelected]="triggerDeselect"
-          >
+                            (playingCardToShare)="clickCard(card)"
+                            [cardIsSelected]="triggerDeselect">
 
           </app-playing-card>
         </div>
       }
   </div>
+  <app-hint
+  [playingCardsOnTable]="playingCards">
+  </app-hint>
 </div>
+

@@ -1,16 +1,16 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {GameHistoryComponent} from "../game-history/game-history.component";
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {PlayingCardComponent} from '../playing-card/playing-card.component';
 import {PlayingTableService} from '../../services/playing-table.service';
 import {Card} from '../../../models/Card';
-import {delay} from 'rxjs';
+import {withInterceptors} from '@angular/common/http';
+import {HintComponent} from '../hint/hint.component';
 
 @Component({
   selector: 'app-playing-table',
   standalone: true,
   imports: [
-    GameHistoryComponent,
-    PlayingCardComponent
+    PlayingCardComponent,
+    HintComponent
   ],
   templateUrl: './playing-table.component.html',
   styleUrl: './playing-table.component.css'
@@ -23,7 +23,7 @@ export class PlayingTableComponent implements OnInit {
   //Cards that are selected for review
   @Input() selectedCards : Card[] = [];
 
-  triggerDeselect : boolean | undefined = undefined;
+  triggerDeselect : boolean = false;
 
   constructor(private playingTableService: PlayingTableService) {
   }
@@ -36,21 +36,20 @@ export class PlayingTableComponent implements OnInit {
     this.playingTableService.getTablePlayingCards()
       .subscribe( data => {
         this.playingCards = data;
+        console.log(this.playingCards);
       });
   }
 
-  addPlayingCard(card: Card){
-    console.log(card);
-    //If already in selected list, remove from selected list
-
+  clickCard(card: Card){
+    //If already in selected list, remove from selected list (Deselect)
     if (this.selectedCards.includes(card))
     {
       this.removePlayingCard(card);
     }
+    //Otherwise add card
     else{
       this.selectedCards.push(card);
     }
-
     //If 3 cards are selected, check set validity
     if (this.selectedCards.length == 3){
       this.checkSet();
@@ -58,37 +57,23 @@ export class PlayingTableComponent implements OnInit {
   }
 
   checkSet(){
-
     //send to api for review
     this.playingTableService.checkIfSet(this.selectedCards).subscribe(
       response => {
-        if (response === true){
-          this.selectedCards = [];
+        if (response){
           this.handleTriggerDeselect();
-          //console.log(response);
-        }if (response === false){
-          this.selectedCards = [];
+          console.log("is set!");
+        }if (!response){
           this.handleTriggerDeselect();
-          //console.log(response);
+          console.log("is no set");
         }
+        this.selectedCards = [];
       }
-
     );
-
-    //deselect all
-
-
-    //change cards if set is true else continue/ throw false
-    console.log("is set!");
   }
 
-   handleTriggerDeselect(){
-    if (this.triggerDeselect){
-      this.triggerDeselect = false;
-    }
-    else {
-      this.triggerDeselect = true;
-    }
+  handleTriggerDeselect(){
+    this.triggerDeselect = !this.triggerDeselect;
   }
 
   removePlayingCard(card: Card){

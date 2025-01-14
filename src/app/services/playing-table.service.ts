@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Card} from '../../models/Card';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,15 @@ export class PlayingTableService {
 
   constructor(private http: HttpClient) { }
 
-  getTablePlayingCards() {
+  getTablePlayingCards() : Observable<Card>{
     return this.http.get("http://localhost:8080/api/cards/shuffled");
   }
 
-  checkIfSet(cards: Card[]){
-    return this.http.post("http://localhost:8080/api/check-set", cards);
+  checkIfSet(possibleSetCards: Card[]){
+    return this.http.post<boolean>("http://localhost:8080/api/check-set", possibleSetCards);
+  }
+
+  getSetHint(cardsOnTable: Card[]){
+    return this.http.post<Card[]>(`http://localhost:8080/api/check-set/hint`, cardsOnTable);
   }
 }

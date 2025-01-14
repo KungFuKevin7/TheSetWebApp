@@ -1,1 +1,15 @@
-<button>Hint</button>
+<div class="container">
+  <div class="row">
+      <button class="btn btn-lg btn-outline-primary"
+              (click)="requestHint()"
+              >
+      Show Hint
+      </button>
+  </div>
+  <div class="row">
+    <app-hint-overview
+      [playingCards]="playingCardsOnTable"
+      [showHint]="hintRequest"
+    ></app-hint-overview>
+  </div>
+</div>
