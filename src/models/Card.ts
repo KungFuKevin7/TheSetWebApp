@@ -9,14 +9,19 @@ export class Card {
   colour? : string;
 
 
-  constructor( )
+  constructor( cardId: number,
+               cardImg: string ,
+               displayedAmount : number,
+               texture: string ,
+               shape : string,
+               colour : string )
   {
-    this.cardId  = 0;
-    this.cardImg = "";
-    this.displayedAmount = 0;
-    this.texture = '';
-    this.shape = '';
-    this.colour = '';
+    this.cardId  = cardId;
+    this.cardImg = cardImg;
+    this.displayedAmount = displayedAmount;
+    this.texture = texture;
+    this.shape = shape;
+    this.colour = colour;
   }
 
 }

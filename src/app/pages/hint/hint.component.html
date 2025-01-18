@@ -1,15 +1,27 @@
 <div class="container">
   <div class="row">
-      <button class="btn btn-lg btn-outline-primary"
+      <button class="hint-button btn btn-lg btn-outline-primary"
               (click)="requestHint()"
               >
-      Show Hint
+      Show/Hide Hint
       </button>
-  </div>
-  <div class="row">
-    <app-hint-overview
-      [playingCards]="playingCardsOnTable"
-      [showHint]="hintRequest"
-    ></app-hint-overview>
+
+      @if(displayHint){
+        <div class="container">
+          <div class="row">
+            @for (card of hintedCards; track $index) {
+              <div class="col-sm-4">
+                @for (amount of [].constructor(card.displayedAmount); track $index) {
+                  <img ngSrc="/assets/{{card.shape}}_{{card.texture}}_{{card.colour}}.png" alt="card" height="29" width="72"/>
+                  <br>
+                }
+              </div>
+            }
+            <div class="col-sm-4">
+              <h1>?</h1>
+            </div>
+          </div>
+        </div>
+      }
   </div>
 </div>

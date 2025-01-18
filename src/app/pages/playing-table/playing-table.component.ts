@@ -1,9 +1,11 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {PlayingCardComponent} from '../playing-card/playing-card.component';
 import {PlayingTableService} from '../../services/playing-table.service';
 import {Card} from '../../../models/Card';
 import {withInterceptors} from '@angular/common/http';
 import {HintComponent} from '../hint/hint.component';
+import {PlayingTableSharedService} from '../../shared-services/playing-table-shared.service';
+import {resolve} from '@angular/compiler-cli';
 
 @Component({
   selector: 'app-playing-table',
@@ -15,7 +17,7 @@ import {HintComponent} from '../hint/hint.component';
   templateUrl: './playing-table.component.html',
   styleUrl: './playing-table.component.css'
 })
-export class PlayingTableComponent implements OnInit {
+export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
 
   //All cards on the table
   @Input() playingCards: any = [];
@@ -25,23 +27,37 @@ export class PlayingTableComponent implements OnInit {
 
   triggerDeselect : boolean = false;
 
-  constructor(private playingTableService: PlayingTableService) {
+  constructor(private playingTableService: PlayingTableService,
+              private playingTableSharedService: PlayingTableSharedService) {
   }
 
   ngOnInit(): void {
-    this.getRandomCards();
+    this.playingTableService.getTablePlayingCards().subscribe(
+      response => {
+        this.playingTableSharedService.changePlayingCardsOnTable(response);
+      }
+    )
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+      this.playingTableSharedService.playingCardsOnTable$.subscribe(
+        response => {
+          console.log(response);
+        }
+      )
   }
 
-  getRandomCards(){
-    this.playingTableService.getTablePlayingCards()
-      .subscribe( data => {
-        this.playingCards = data;
-        console.log(this.playingCards);
-      });
+  ngAfterViewInit() {
+    this.playingTableSharedService.playingCardsOnTable$.subscribe(
+      cards => {
+        this.playingCards = cards;
+      }
+    )
   }
+
 
   clickCard(card: Card){
     //If already in selected list, remove from selected list (Deselect)
+    this.playingTableSharedService.changeSelectedCards(card);
     if (this.selectedCards.includes(card))
     {
       this.removePlayingCard(card);
@@ -77,7 +93,9 @@ export class PlayingTableComponent implements OnInit {
   }
 
   removePlayingCard(card: Card){
-    this.selectedCards.splice(this.selectedCards.indexOf(card), 1);
+
+
+    //this.selectedCards.splice(this.selectedCards.indexOf(card), 1);
   }
 
 }

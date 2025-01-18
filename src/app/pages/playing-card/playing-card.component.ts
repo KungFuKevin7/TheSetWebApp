@@ -15,7 +15,7 @@ import { Card } from '../../../models/Card';
 export class PlayingCardComponent implements OnChanges {
 
   //Card that component is representing
-  @Input() playingCard : Card = new Card();
+  @Input() playingCard! : Card;
   //Share card with parent
   @Output() playingCardToShare  = new EventEmitter<Card>();
   //Card is Selected

@@ -1,27 +1,53 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {PlayingTableService} from '../../services/playing-table.service';
 import {Card} from '../../../models/Card';
-import {HintOverviewComponent} from './hint-overview/hint-overview.component';
+import {Router} from '@angular/router';
+import {PlayingTableSharedService} from '../../shared-services/playing-table-shared.service';
+import {NgOptimizedImage} from '@angular/common';
 
 @Component({
   selector: 'app-hint',
   standalone: true,
   imports: [
-    HintOverviewComponent
+    NgOptimizedImage
   ],
   templateUrl: './hint.component.html',
   styleUrl: './hint.component.css'
 })
-export class HintComponent {
-
-  @Input() playingCardsOnTable : Card[] = [];
-
+export class HintComponent implements OnInit{
+  @Input() playingCards! : Card[];
+  @Input() hintedCards! : Card[];
   @Input() hintRequest : boolean = false;
 
-  constructor() { }
+  displayHint : boolean = false;
+
+  constructor(private playingTableSharedService: PlayingTableSharedService, private playingTableService : PlayingTableService) { }
+
+
+  ngOnInit(): void {
+
+    this.playingTableSharedService.playingCardsOnTable$.subscribe(
+      response => {
+        this.playingCards = response;
+      }
+    )
+  }
 
   requestHint(){
-    this.hintRequest = !this.hintRequest;
-    console.log(this.hintRequest)
+    if (this.displayHint){
+      this.displayHint = false;
+    }else{
+      this.playingTableService.getSetHint(this.playingCards).subscribe(
+        response => {
+          console.log(response);
+          this.hintedCards = response;
+        }
+      )
+
+      this.displayHint = true;
+    }
+
+
+
   }
 }
