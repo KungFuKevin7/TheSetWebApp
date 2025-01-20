@@ -2,7 +2,6 @@ import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, SimpleCha
 import {PlayingTableService} from '../../services/playing-table.service';
 import {Card} from '../../../models/Card';
 import {Router} from '@angular/router';
-import {PlayingTableSharedService} from '../../shared-services/playing-table-shared.service';
 import {NgOptimizedImage} from '@angular/common';
 
 @Component({
@@ -21,16 +20,16 @@ export class HintComponent implements OnInit{
 
   displayHint : boolean = false;
 
-  constructor(private playingTableSharedService: PlayingTableSharedService, private playingTableService : PlayingTableService) { }
+  constructor(private playingTableService : PlayingTableService) { }
 
 
   ngOnInit(): void {
 
-    this.playingTableSharedService.playingCardsOnTable$.subscribe(
+  /*  this.playingTableSharedService.playingCardsOnTable$.subscribe(
       response => {
         this.playingCards = response;
       }
-    )
+    )*/
   }
 
   requestHint(){

@@ -1,5 +1,4 @@
-
-export class Card {
+export interface Card {
 
   cardId? : number;
   cardImg? : string;
@@ -7,7 +6,7 @@ export class Card {
   texture? : string;
   shape? : string;
   colour? : string;
-
+/*
 
   constructor( cardId: number,
                cardImg: string ,
@@ -22,6 +21,6 @@ export class Card {
     this.texture = texture;
     this.shape = shape;
     this.colour = colour;
-  }
+  }*/
 
 }

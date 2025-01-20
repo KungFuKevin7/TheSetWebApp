@@ -6,7 +6,6 @@ import {AuthService} from '../../services/auth.service';
   selector: 'app-user-options',
   standalone: true,
   imports: [
-    HintComponent
   ],
   templateUrl: './user-options.component.html',
   styleUrl: './user-options.component.css'
