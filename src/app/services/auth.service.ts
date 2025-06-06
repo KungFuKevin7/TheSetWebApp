@@ -4,6 +4,8 @@ import {catchError, map, Observable, of} from 'rxjs';
 import {Users} from '../../models/Users';
 import {API_URL} from '../.constants';
 import {Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {setUser} from '../store/user-state/user.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ export class AuthService {
   //isLoggedIn : boolean = false;
   UserAPIURL = `${API_URL}/user`;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private store : Store) { }
 
   login(userDetails : Users): Observable<boolean> {
     return this.http.post<any>(`${this.UserAPIURL}/login`, userDetails)
@@ -26,6 +28,13 @@ export class AuthService {
           localStorage.setItem('expiresInMillis', response.expiresInMillis);
           localStorage.setItem('jwt_token', response.token);
           //this.isLoggedIn = true;
+
+          let user = new Users(response.userid, response.username)
+
+          this.store.dispatch(setUser(
+            { jwt: localStorage.getItem('jwt_token')}
+          ));
+
           this.router.navigate(['/play-game']);
           return true;
         }),catchError(err => {

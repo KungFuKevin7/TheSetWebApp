@@ -1,23 +1,23 @@
 <div class="container">
-  <div class="row">
+<div class="row">
 
-    <br>
-    <p class="text-center">Please enter your credentials and let's get started!</p>
-    <br>
+  <br>
+  <p class="text-center">Please enter your credentials and let's get started!</p>
+  <br>
 
-    <input name="userusername" type="text" [(ngModel)]="user.username" class="form-control" placeholder="Enter your username here!">
+  <input name="userusername" type="text" [(ngModel)]="user.username" class="form-control" placeholder="Enter your username here!">
 
-    <input name="userpassword" type="password" [(ngModel)]="user.password" class="form-control" placeholder="Password">
+  <input name="userpassword" type="password" [(ngModel)]="user.password" class="form-control" placeholder="Password">
 
-    <p>No Account? No Wozzas! Click <a routerLink="/register">here</a>!</p>
+  <p>No Account? No Wozzas! Click <a routerLink="/register">here</a>!</p>
 
-      <button class="btn btn-lg btn-outline-success"
-              type="button"
-              (click)="login()">
-        Let's Play!
-      </button>
+  <button class="btn btn-lg btn-outline-success"
+          type="button"
+          (click)="login()">
 
-  </div>
+    Let's Play!
+  </button>
+
 </div>
-
+</div>
 

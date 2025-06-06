@@ -2,13 +2,21 @@ import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output
 import {PlayingCardComponent} from '../playing-card/playing-card.component';
 import {PlayingTableService} from '../../services/playing-table.service';
 import {Card} from '../../../models/Card';
-import {HintComponent} from '../hint/hint.component';
+import {Store} from '@ngrx/store';
+import {FormsModule} from '@angular/forms';
+import {CommonModule, NgFor} from '@angular/common';
+import {AppState} from '../../store/app.state';
+import {getCardsForTable} from '../../store/game-state/game.actions';
+import {selectCards} from '../../store/game-state/game.selectors';
 
 @Component({
   selector: 'app-playing-table',
   standalone: true,
   imports: [
-    PlayingCardComponent
+    PlayingCardComponent,
+    FormsModule,
+    CommonModule,
+    NgFor
   ],
   templateUrl: './playing-table.component.html',
   styleUrl: './playing-table.component.css'
@@ -18,35 +26,33 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
   //All cards on the table
   @Input() playingCards: any = [];
 
+  public playingCards$ = this.store.select(selectCards);
+
   //Cards that are selected for review
   @Input() selectedCards : Card[] = [];
 
   triggerDeselect : boolean = false;
 
-  constructor(private playingTableService: PlayingTableService) {
+  constructor(private store : Store<AppState>,
+              private playingTableService: PlayingTableService) {
   }
 
   ngOnInit(): void {
-    this.playingTableService.getTablePlayingCards().subscribe(
+   /* this.playingTableService.getTablePlayingCards().subscribe(
       response => {
         //this.playingTableSharedService.changePlayingCardsOnTable(response);
       }
-    )
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-/*      this.playingTableSharedService.playingCardsOnTable$.subscribe(
-        response => {
-          console.log(response);
-        }
-      )*/
+    )*/
+    this.store.dispatch(getCardsForTable());
+
   }
 
-  ngAfterViewInit() {/*
-    this.playingTableSharedService.playingCardsOnTable$.subscribe(
-      cards => {
-        this.playingCards = cards;
-      }
-    )*/
+  ngOnChanges(changes: SimpleChanges): void {
+
+  }
+
+  ngAfterViewInit() {
+
   }
 
 
