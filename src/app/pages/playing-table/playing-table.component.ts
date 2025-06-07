@@ -6,9 +6,8 @@ import {Store} from '@ngrx/store';
 import {FormsModule} from '@angular/forms';
 import {CommonModule, NgFor} from '@angular/common';
 import {AppState} from '../../store/app.state';
-import {getCardsForTable} from '../../store/game-state/game.actions';
-import {selectCards} from '../../store/game-state/game.selectors';
-
+import * as GameSelectors from '../../store/game-state/game.selectors';
+import {testAction} from '../../store/game-state/game.actions';
 @Component({
   selector: 'app-playing-table',
   standalone: true,
@@ -26,14 +25,16 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
   //All cards on the table
   @Input() playingCards: any = [];
 
-  public playingCards$ = this.store.select(selectCards);
+  //public playingCards$ = this.store.select(selectCards);
 
   //Cards that are selected for review
   @Input() selectedCards : Card[] = [];
 
+  a$ = this.store.select(GameSelectors.selectTest);
+
   triggerDeselect : boolean = false;
 
-  constructor(private store : Store<AppState>,
+  constructor(private store : Store,
               private playingTableService: PlayingTableService) {
   }
 
@@ -43,7 +44,8 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
         //this.playingTableSharedService.changePlayingCardsOnTable(response);
       }
     )*/
-    this.store.dispatch(getCardsForTable());
+    this.store.dispatch(testAction());
+    //this.store.dispatch(getCardsForTable());
 
   }
 

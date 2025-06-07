@@ -1,11 +1,11 @@
 //import {GameState} from './GameState';
-import {createReducer, on} from '@ngrx/store';
+import {createFeature, createReducer, on} from '@ngrx/store';
 import {
   setGame,
   loadGames,
   loadGamesFailure,
   loadGamesSuccess,
-  removeCardsFromTable, getCardsForTable
+  removeCardsFromTable, getCardsForTable, testAction
 } from './game.actions';
 import {Card} from '../../../models/Card';
 
@@ -29,19 +29,20 @@ export const initialState: GameState = {
 
 export const gameReducer = createReducer(
   initialState,
+  on(testAction, (state) =>({
+    ...state,
+    Error: 'Fitter Happier, more productive'
+  })),
   //Set the game in the store object
   on(setGame, (state, { content }) =>({
     ...state,
     PlayingCards: [...state.PlayingCards]
   })),
 
-
-
   on(getCardsForTable, (state) => ({
     ...state,
     PlayingCards : state.PlayingCards
   })),
-
 
   //Remove cards from table
   on(removeCardsFromTable, (state, { cards }) => ({
@@ -65,4 +66,10 @@ export const gameReducer = createReducer(
     error : error,
     GameStatus : 'error',
   }))
-)
+);
+
+export const gameFeature = createFeature({
+  name: 'game',
+  reducer: gameReducer
+});
+

@@ -2,6 +2,10 @@ import {createAction, props} from '@ngrx/store';
 import {Card} from '../../../models/Card';
 import {Observable} from 'rxjs';
 
+export const testAction = createAction(
+  '[Game Page] Test Action'
+);
+
 //Add Game
 export const setGame = createAction(
   '[Game Page] Set The Game',

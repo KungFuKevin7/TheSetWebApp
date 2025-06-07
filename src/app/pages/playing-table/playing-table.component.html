@@ -1,12 +1,13 @@
 <div class="container">
   <div class="row">
-    <div *ngFor="let card of playingCards$ | async " class="col-sm-3">
+    <div *ngFor="let card of playingCards " class="col-sm-3">
       <app-playing-card [playingCard]="card"
                         (playingCardToShare)="clickCard(card)"
                         [cardIsSelected]="triggerDeselect">
 
       </app-playing-card>
     </div>
+    <p>{{a$ | async}}</p>
   </div>
 </div>
 

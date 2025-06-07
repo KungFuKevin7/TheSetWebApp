@@ -22,4 +22,5 @@ export class PlayingTableService {
   getSetHint(cardsOnTable: Card[]){
     return this.http.post<Card[]>(`http://localhost:8080/api/check-set/hint`, cardsOnTable);
   }
+
 }
