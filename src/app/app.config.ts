@@ -9,12 +9,13 @@ import {
   withInterceptorsFromDi
 } from '@angular/common/http';
 import {authInterceptor} from './interceptor/auth.interceptor';
-import {provideState, provideStore, StoreModule} from '@ngrx/store';
+import {provideState, provideStore} from '@ngrx/store';
 import {userReducer} from './store/user-state/user.reducer';
 import {gameReducer} from './store/game-state/game.reducers';
 import {provideEffects} from '@ngrx/effects';
 import {UserEffects} from './store/user-state/user.effects';
 import {GameStateEffects} from './store/game-state/game.effects';
+import {cardsReducer} from './store/cards-state/cards.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }),
@@ -22,8 +23,10 @@ export const appConfig: ApplicationConfig = {
     provideStore(),
     provideStore(userReducer),
     provideStore(gameReducer),
+    provideStore(cardsReducer),
     provideState({name: 'user', reducer: userReducer}),
     provideState({name: 'game', reducer: gameReducer}),
+    provideState({name: 'cards', reducer: cardsReducer}),
     provideEffects(GameStateEffects),
     provideHttpClient(withInterceptorsFromDi()),
     {
