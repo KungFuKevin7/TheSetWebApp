@@ -30,7 +30,7 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
   //Cards that are selected for review
   @Input() selectedCards : Card[] = [];
 
-  a$ = this.store.select(GameSelectors.selectTest);
+  a$ = this.store.select(GameSelectors.selectGameId);
 
   triggerDeselect : boolean = false;
 

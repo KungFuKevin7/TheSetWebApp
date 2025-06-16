@@ -5,14 +5,12 @@ import {Users} from '../../models/Users';
 import {API_URL} from '../.constants';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
-import {setUser} from '../store/user-state/user.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  //isLoggedIn : boolean = false;
   UserAPIURL = `${API_URL}/user`;
 
   constructor(private http: HttpClient, private router: Router, private store : Store) { }
@@ -30,10 +28,6 @@ export class AuthService {
           //this.isLoggedIn = true;
 
           let user = new Users(response.userid, response.username)
-
-          this.store.dispatch(setUser(
-            { jwt: localStorage.getItem('jwt_token')}
-          ));
 
           this.router.navigate(['/play-game']);
           return true;

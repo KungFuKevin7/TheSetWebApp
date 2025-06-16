@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {Store} from '@ngrx/store';
 import {AppState} from '../app.state';
-import {getCardsForTable, loadCardsFailure, loadCardsSuccess} from './game.actions';
 import {catchError, exhaustMap, from, map, of, switchMap} from 'rxjs';
 import {PlayingTableService} from '../../services/playing-table.service';
 
@@ -12,8 +11,7 @@ export class GameStateEffects {
     private actions$: Actions,
     private playingTableService : PlayingTableService
   ){}
-
-  loadCards$ = createEffect(() => {
+  /* loadCards$ = createEffect(() => {
      return this.actions$.pipe(
         ofType(getCardsForTable),
           exhaustMap(() => this.playingTableService.getTablePlayingCards()
@@ -23,7 +21,7 @@ export class GameStateEffects {
             )
       ))
      )
-  });
+  });*/
 
 
 

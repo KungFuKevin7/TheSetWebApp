@@ -1,20 +1,24 @@
-import {AppState} from '../app.state';
-import {createSelector} from '@ngrx/store';
-import {gameFeature, GameState} from './game.reducers';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
+import {GameState} from './GameState';
 
-export const {
-    selectError,
-} = gameFeature
+export const gameFeatureSelector = createFeatureSelector<GameState>('game');
 
-export const selectorGameState = (state: AppState) => state.currentGame;
-
-export const selectCards = (state : AppState) => state.currentGame.PlayingCards;
-
-export const selectFeature =
-  (state : AppState) => state.currentGame;
-
-export const selectTest = createSelector(
-  gameFeature.selectGameState,
-  (state : GameState) => state.Error
+export const selectGameId = createSelector(
+  gameFeatureSelector,
+  state => state.gameId
 );
 
+export const selectUserId = createSelector(
+  gameFeatureSelector,
+  state => state.userId
+);
+
+export const selectGameStatus = createSelector(
+  gameFeatureSelector,
+  state => state.gameStatus
+);
+
+export const selectGameError = createSelector(
+  gameFeatureSelector,
+  state => state.error
+)

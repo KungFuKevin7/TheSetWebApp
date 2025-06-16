@@ -10,23 +10,25 @@ import {
 } from '@angular/common/http';
 import {authInterceptor} from './interceptor/auth.interceptor';
 import {provideState, provideStore} from '@ngrx/store';
-import {userReducer} from './store/user-state/user.reducer';
 import {gameReducer} from './store/game-state/game.reducers';
 import {provideEffects} from '@ngrx/effects';
-import {UserEffects} from './store/user-state/user.effects';
 import {GameStateEffects} from './store/game-state/game.effects';
 import {cardsReducer} from './store/cards-state/cards.reducer';
+import {setReducer} from './store/set-state/set.reducer';
+import {boardReducer} from './store/board-state/board.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideStore(),
-    provideStore(userReducer),
+    provideStore(setReducer),
     provideStore(gameReducer),
     provideStore(cardsReducer),
-    provideState({name: 'user', reducer: userReducer}),
+    provideStore(boardReducer),
+    provideState({name: 'sets', reducer: setReducer}),
     provideState({name: 'game', reducer: gameReducer}),
     provideState({name: 'cards', reducer: cardsReducer}),
+    provideState({name: 'board', reducer: boardReducer}),
     provideEffects(GameStateEffects),
     provideHttpClient(withInterceptorsFromDi()),
     {
