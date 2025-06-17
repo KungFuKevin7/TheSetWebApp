@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.getAuthToken() != null) {
-      this.router.navigate(['/play-game']);
+      this.router.navigate(['/select-game']);
     }
   }
 

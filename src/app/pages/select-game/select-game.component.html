@@ -1,0 +1,17 @@
+<div class="text-center">
+  <h1 class="display-4">Select Game</h1>
+  <br>
+  <button class="btn btn-success" (click)="startNewGame()">+ Start New Game</button>
+  <br><br>
+  <div *ngFor="let game of games">
+    <div routerLink="/play-game">
+      <div class="card">
+        <h2>Game: {{game.gameId}}</h2>
+        <h4>Stats</h4>
+        <p>Sets Found: {{game.setsFound}}</p>
+        <p>Time: {{game.elapsedTime}}</p>
+      </div>
+    </div>
+    <br>
+  </div>
+</div>

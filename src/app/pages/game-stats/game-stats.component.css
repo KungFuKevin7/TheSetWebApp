@@ -2,6 +2,6 @@
   border-radius: 20px;
   border: 1px solid;
 
-  border-image: linear-gradient(to right, #000000 0%, #FFFFFF 100%) 0.75;
+  border-image: linear-gradient(to left, #000000 0%, #FFFFFF 100%) 0.75;
   padding: 10px;
 }
