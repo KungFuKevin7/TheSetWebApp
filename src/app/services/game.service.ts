@@ -1,39 +1,39 @@
 import { Injectable } from '@angular/core';
-import {GameActions} from '../store/game.actions';
-import {BehaviorSubject} from 'rxjs';
-import {GameState} from '../store/game.state';
-import {Store} from '../store/store';
 import {Card} from '../../models/Card';
+import {HttpClient} from '@angular/common/http';
+import {API_URL} from '../.constants';
+import {Users} from '../../models/Users';
+import {Game} from '../../models/Game';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
-  private actions : GameActions;
 
-  private gameStateSubject : BehaviorSubject<GameState>;
-  public gameState$;
+  gameAPIURL = `${API_URL}/game`;
 
-  constructor(private store : Store<GameState>) {
-    this.actions = new GameActions(store);
+  constructor(private http : HttpClient) {
+  }
 
-    this.gameStateSubject = new BehaviorSubject<GameState>(this.store.getStateSnapshot());
-    this.gameState$ = this.gameStateSubject.asObservable();
+  startGame(user : Users)
+  {
+    return this.http.post<Game>(`${this.gameAPIURL}/start-new`, user);
+  }
 
-    this.store.state$.subscribe((state) => {
-      this.gameStateSubject.next(state);
-    });
+  getGamesFromUser(userId : number)
+  {
+    return this.http.get<Game[]>(`${this.gameAPIURL}/by-user/${userId}`);
   }
 
   initializeGame(deck : Card[]) : void {
-    this.actions.initialize(deck);
+    //this.actions.initialize(deck);
   }
 
   selectCard(selectedCard : Card) : void {
-    this.actions.selectCard(selectedCard);
+    //this.actions.selectCard(selectedCard);
   }
 
   finalizeGame(): void {
-    this.actions.finalizeGame();
+    //this.actions.finalizeGame();
   }
 }

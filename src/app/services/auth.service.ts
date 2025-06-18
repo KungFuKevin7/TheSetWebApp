@@ -29,7 +29,7 @@ export class AuthService {
 
           let user = new Users(response.userid, response.username)
 
-          this.router.navigate(['/play-game']);
+          this.router.navigate(['/select-game']);
           return true;
         }),catchError(err => {
           console.log(err);

@@ -3,7 +3,7 @@
   <br>
   <button class="btn btn-success" (click)="startNewGame()">+ Start New Game</button>
   <br><br>
-  <div *ngFor="let game of games">
+  <div *ngFor="let game of games$ | async">
     <div routerLink="/play-game">
       <div class="card">
         <h2>Game: {{game.gameId}}</h2>

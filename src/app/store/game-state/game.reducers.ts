@@ -5,7 +5,7 @@ import {
   loadUserGames,
   loadUserGamesFailure,
   loadUserGamesSuccess,
-  startGame,
+  startGame, startGameFailure, startGameSuccess,
   testAction
 } from './game.actions';
 import {state} from '@angular/animations';
@@ -21,9 +21,19 @@ const initialState: GameState = {
 
 export const gameReducer = createReducer(
   initialState,
-  on(startGame, (state, {gameId}) => ({
+  on(startGame, (state, {user}) => ({
     ...state,
-    gameId: gameId
+  })),
+  on(startGameSuccess,(state, {game})=>({
+      ...state,
+    games : [game],
+    isLoading : false,
+    gameId : state.gameId,
+    gameStatus : 'progress'
+  })),
+  on(startGameFailure, (state, {error}) => ({
+    ...state,
+    error: error
   })),
   on(endGame, (state)=>({
     ...state,
