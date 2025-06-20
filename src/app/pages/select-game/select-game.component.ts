@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {loadUserGames} from '../../store/game-state/game.actions';
 import {selectGamesOfUser} from '../../store/game-state/game.selectors';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-select-game',
@@ -21,22 +22,21 @@ import {selectGamesOfUser} from '../../store/game-state/game.selectors';
 })
 export class SelectGameComponent implements OnInit {
   games$? : Observable<Game[]>;
-
   user: Users = new Users();
   game : Game = {user:this.user, gameId: 1, elapsedTime: 3, setsFound:44};
   games: Game[] = [this.game, this.game, this.game];
 
-  constructor(private router : Router, private store : Store)
+  constructor(private router : Router, private store : Store, private authService : AuthService)
   {
 
   }
 
   ngOnInit()
   {
-    const userId = Number(localStorage.getItem('userid'));
-    if (userId){
-      this.store.dispatch(loadUserGames({userId}));
-    }
+    //let jwt = this.authService.getAuthToken();
+    //if (jwt){
+    this.store.dispatch(loadUserGames());//{jwt}));
+    //}
     this.games$ = this.store.select(selectGamesOfUser);
   }
 

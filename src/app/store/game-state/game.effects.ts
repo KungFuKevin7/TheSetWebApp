@@ -34,8 +34,8 @@ export class GameStateEffects {
   loadUserGames$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadUserGames),
-      switchMap(({ userId }) =>
-        this.gameService.getGamesFromUser(userId).pipe(
+      switchMap(() =>
+        this.gameService.getGamesFromUser().pipe(
           map(games => loadUserGamesSuccess({ games })),
           catchError(error =>
             of(loadUserGamesFailure({ error: error.message }))

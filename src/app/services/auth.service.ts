@@ -49,12 +49,6 @@ export class AuthService {
     //this.isLoggedIn = false;
     this.router.navigate(['/']);
   }
-/*
-
-  isAuthenticated() : boolean{
-    return this.isLoggedIn;
-  }
-*/
 
   getAuthToken(){
     return localStorage.getItem('jwt_token');

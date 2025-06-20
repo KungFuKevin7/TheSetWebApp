@@ -37,7 +37,7 @@ export const gameError = createAction(
 
 export const loadUserGames = createAction(
   '[Game] Load Games of User',
-  props<{userId : number}>()
+  //props<{jwt : string}>()
 );
 export const loadUserGamesSuccess = createAction(
   '[Game] Load Games of User Success',

@@ -20,9 +20,9 @@ export class GameService {
     return this.http.post<Game>(`${this.gameAPIURL}/start-new`, user);
   }
 
-  getGamesFromUser(userId : number)
+  getGamesFromUser()
   {
-    return this.http.get<Game[]>(`${this.gameAPIURL}/by-user/${userId}`);
+    return this.http.get<Game[]>(`${this.gameAPIURL}/by-user`);
   }
 
   initializeGame(deck : Card[]) : void {
