@@ -1,5 +1,11 @@
 <div class="container">
   <div class="row">
+    <div *ngIf="currentGame$ | async as currentGame">
+      <h1>
+        {{currentGame}}
+      </h1>
+    </div>
+
     <div *ngFor="let card of playingCards " class="col-sm-3">
       <app-playing-card [playingCard]="card"
                         (playingCardToShare)="clickCard(card)"
@@ -7,7 +13,12 @@
 
       </app-playing-card>
     </div>
-    <p>{{a$ | async}}</p>
+
+<!--    <div *ngIf="currentDeck$ | async as currentDeck">
+      <div *ngFor="let card of currentDeck">
+        <p>{{card.cardId}}</p>
+      </div>
+    </div>-->
   </div>
 </div>
 

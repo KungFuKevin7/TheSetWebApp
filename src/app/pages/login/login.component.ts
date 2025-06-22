@@ -22,7 +22,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authService.removeAuthToken()
     if (this.authService.getAuthToken() != null) {
+      console.log("Hi")
+      console.log(this.authService.getAuthToken());
       this.router.navigate(['/select-game']);
     }
   }
@@ -31,7 +34,6 @@ export class LoginComponent implements OnInit {
   login(){
 
     console.log(this.user.getUsername() + " " + this.user.getPassword());
-
     this.authService.login(
       new Users(this.user.getUsername(), this.user.getPassword()))
       .subscribe(

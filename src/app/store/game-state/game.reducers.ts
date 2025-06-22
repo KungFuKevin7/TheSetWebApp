@@ -4,7 +4,7 @@ import {
   endGame,
   loadUserGames,
   loadUserGamesFailure,
-  loadUserGamesSuccess,
+  loadUserGamesSuccess, selectGame,
   startGame, startGameFailure, startGameSuccess,
   testAction
 } from './game.actions';
@@ -12,23 +12,22 @@ import {state} from '@angular/animations';
 import {loadDeckFailure} from '../cards-state/cards.actions';
 
 const initialState: GameState = {
-  gameId : 0,
+  currentGameId : 0,
   gameStatus : 'progress',
   isLoading : false,
-  games : [],
+  userGames : [],
   error : ''
 }
 
 export const gameReducer = createReducer(
   initialState,
-  on(startGame, (state, {user}) => ({
+  on(startGame, (state) => ({
     ...state,
   })),
-  on(startGameSuccess,(state, {game})=>({
+  on(startGameSuccess,(state, {gameId})=>({
       ...state,
-    games : [game],
+    currentGameId : gameId,
     isLoading : false,
-    gameId : state.gameId,
     gameStatus : 'progress'
   })),
   on(startGameFailure, (state, {error}) => ({
@@ -42,10 +41,15 @@ export const gameReducer = createReducer(
     ...state,
     isLoading: true
   })),
+  on(selectGame,(state, {game})=>({
+    ...state,
+    currentGame : game,
+    isLoading : false,
+  })),
   on(loadUserGamesSuccess, (state, {games})=>({
     ...state,
     isLoading: false,
-    games: games
+    userGames: games
   })),
   on(loadUserGamesFailure, (state, {error})=>({
     ...state,
@@ -56,6 +60,6 @@ export const gameReducer = createReducer(
   //TEST
   on(testAction, (state) =>({
     ...state,
-    Error: 'Fitter Happier, more productive'
+    error: 'Fitter Happier, more productive'
   }))
 )

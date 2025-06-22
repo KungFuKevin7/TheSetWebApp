@@ -4,6 +4,8 @@ import {HttpClient} from '@angular/common/http';
 import {API_URL} from '../.constants';
 import {Users} from '../../models/Users';
 import {Game} from '../../models/Game';
+import {DeckCardDto} from '../dto/DeckCardDto';
+import {GameInitDto} from '../dto/GameInitDto';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +17,16 @@ export class GameService {
   constructor(private http : HttpClient) {
   }
 
-  startGame(user : Users)
+  startGame()
   {
-    return this.http.post<Game>(`${this.gameAPIURL}/start-new`, user);
+    return this.http.post<Game>(`${this.gameAPIURL}/start-new`, "");
   }
+
+  startGameWithDeck()
+  {
+    return this.http.post<GameInitDto>(`${this.gameAPIURL}/start-game-with-deck`, "");
+  }
+
 
   getGamesFromUser()
   {

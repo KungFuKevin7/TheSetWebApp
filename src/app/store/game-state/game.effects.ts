@@ -7,29 +7,56 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {
   loadUserGames,
   loadUserGamesFailure,
-  loadUserGamesSuccess,
+  loadUserGamesSuccess, selectGame,
   startGame,
   startGameFailure,
   startGameSuccess
 } from './game.actions';
-import {catchError, map, of, switchMap} from 'rxjs';
+import {catchError, exhaustMap, map, mergeMap, of, switchMap, tap} from 'rxjs';
+import {Router} from '@angular/router';
+import {setDeck} from '../cards-state/cards.actions';
 
 @Injectable()
 export class GameStateEffects {
-  constructor(private gameService: GameService, private actions$ : Actions){}
+  constructor(private gameService: GameService, private actions$ : Actions, private router : Router){}
 
-  startGame$ = createEffect(() =>
+  startGame$ = createEffect(
+    () =>
     this.actions$.pipe(
       ofType(startGame),
-        switchMap(({user}) =>
-          this.gameService.startGame(user).pipe(
-            map(game => startGameSuccess({game: game})),
+        exhaustMap(() =>
+          this.gameService.startGameWithDeck().pipe(
+            mergeMap(gameInitDto => [
+                startGameSuccess({ gameId : gameInitDto.gameId }),
+                setDeck({deck: gameInitDto.deckCards})
+              ]),
             catchError(error =>
               of(startGameFailure({error: error}))),
           )
         )
     )
   );
+
+  startGameSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(startGameSuccess),
+        tap(({gameId}) => {
+          this.router.navigate(['/play-game']);
+        })
+      ),
+      {functional:true, dispatch:false}
+    );
+
+  selectGame$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(selectGame),tap(({game}) => {
+          this.router.navigate(['/play-game']);
+        })
+      ),
+    {functional:true, dispatch:false}
+  )
 
   loadUserGames$ = createEffect(() =>
     this.actions$.pipe(

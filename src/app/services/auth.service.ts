@@ -76,4 +76,8 @@ export class AuthService {
   getUserId(){
     return localStorage.getItem('userid');
   }
+
+  removeAuthToken() {
+    localStorage.removeItem('jwt_token');
+  }
 }

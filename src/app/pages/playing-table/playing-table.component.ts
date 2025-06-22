@@ -7,7 +7,12 @@ import {FormsModule} from '@angular/forms';
 import {CommonModule, NgFor} from '@angular/common';
 import {AppState} from '../../store/app.state';
 import * as GameSelectors from '../../store/game-state/game.selectors';
-import {testAction} from '../../store/game-state/game.actions';
+import * as CardSelectors from '../../store/cards-state/cards.selectors';
+import {Observable} from 'rxjs';
+import {Game} from '../../../models/Game';
+import {GameState} from '../../store/game-state/GameState';
+import {DeckCardDto} from '../../dto/DeckCardDto';
+import {cardsStateSelector} from '../../store/cards-state/cards.selectors';
 @Component({
   selector: 'app-playing-table',
   standalone: true,
@@ -30,23 +35,23 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
   //Cards that are selected for review
   @Input() selectedCards : Card[] = [];
 
-  a$ = this.store.select(GameSelectors.selectGameId);
+  currentGame$?: Observable<number | undefined>;
+  currentDeck$?: Observable<Card[]>;
 
   triggerDeselect : boolean = false;
 
-  constructor(private store : Store,
-              private playingTableService: PlayingTableService) {
-  }
+  constructor(private store : Store<{game : GameState}>)
+  {}
 
   ngOnInit(): void {
-   /* this.playingTableService.getTablePlayingCards().subscribe(
-      response => {
-        //this.playingTableSharedService.changePlayingCardsOnTable(response);
-      }
-    )*/
-    this.store.dispatch(testAction());
-    //this.store.dispatch(getCardsForTable());
 
+    this.currentGame$ = this.store.select(GameSelectors.selectCurrentGameId);
+    this.currentDeck$ = this.store.select(CardSelectors.selectDeck);
+
+    this.currentGame$.subscribe(
+      p =>
+        console.log(p)
+    )
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -77,7 +82,7 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
 
   checkSet(){
     //send to api for review
-    this.playingTableService.checkIfSet(this.selectedCards).subscribe(
+ /*   this.playingTableService.checkIfSet(this.selectedCards).subscribe(
       response => {
         if (response){
           this.handleTriggerDeselect();
@@ -88,7 +93,7 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
         }
         this.selectedCards = [];
       }
-    );
+    );*/
   }
 
   handleTriggerDeselect(){

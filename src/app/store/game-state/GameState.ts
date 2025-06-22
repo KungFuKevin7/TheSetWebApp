@@ -1,10 +1,9 @@
 import {Game} from '../../../models/Game';
 
 export interface GameState {
-  gameId: number;
-  //userId: number;
+  currentGameId: number;
   isLoading: boolean;
   gameStatus : string
-  games : Game[]
+  userGames : Game[]
   error : string | undefined;
 }

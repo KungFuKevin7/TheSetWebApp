@@ -2,6 +2,7 @@ import {createAction, props} from '@ngrx/store';
 import {Card} from '../../../models/Card';
 import {Game} from '../../../models/Game';
 import {Users} from '../../../models/Users';
+import {DeckCardDto} from '../../dto/DeckCardDto';
 
 export const testAction = createAction(
   '[Game Page] Test Action'
@@ -9,12 +10,11 @@ export const testAction = createAction(
 
 //Add Game
 export const startGame = createAction(
-  '[Game Page] Start Game',
-  props<{ user : Users}>()
+  '[Game Page] Start Game'
 );
 export const startGameSuccess = createAction(
   '[Game Page] Start Game Success',
-  props<{ game : Game}>()
+  props<{ gameId : number }>()
 );
 export const startGameFailure = createAction(
   '[Game Page] Start Game Failure',
@@ -36,8 +36,7 @@ export const gameError = createAction(
   props<{errorMessage : string}>)();
 
 export const loadUserGames = createAction(
-  '[Game] Load Games of User',
-  //props<{jwt : string}>()
+  '[Game] Load Games of User'
 );
 export const loadUserGamesSuccess = createAction(
   '[Game] Load Games of User Success',
@@ -46,4 +45,9 @@ export const loadUserGamesSuccess = createAction(
 export const loadUserGamesFailure = createAction(
   '[Game] Load Games of User Failure',
   props<{error : string}>()
+)
+
+export const selectGame = createAction(
+  '[Game] Select Game]',
+  props<{game : Game}>()
 )

@@ -1,7 +1,7 @@
 import {CardsState} from './CardsState';
 import {createReducer, on} from '@ngrx/store';
 import {state} from '@angular/animations';
-import {loadDeckFailure, loadDeckSuccess} from './cards.actions';
+import {loadDeckFailure, loadDeckSuccess, setDeck} from './cards.actions';
 const initialState: CardsState = {
   cardDeck : [],
   loaded : false
@@ -17,6 +17,11 @@ export const cardsReducer = createReducer(
   on(loadDeckFailure, (state, {error}) =>({
     ...state,
     error: error
+  })),
+  on(setDeck, (state, {deck}) =>({
+    ...state,
+    cardDeck : deck,
+    loaded: true
   }))
 /*  on(CardsActions.selectCard, (state, { Card }) => ({
     ...state,
