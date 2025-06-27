@@ -6,10 +6,8 @@
       </h1>
     </div>
 
-    <div *ngFor="let card of playingCards " class="col-sm-3">
-      <app-playing-card [playingCard]="card"
-                        (playingCardToShare)="clickCard(card)"
-                        [cardIsSelected]="triggerDeselect">
+    <div *ngFor="let card of currentCardsOnBoard$ | async " class="col-sm-3">
+      <app-playing-card [playingCard]="card">
 
       </app-playing-card>
     </div>

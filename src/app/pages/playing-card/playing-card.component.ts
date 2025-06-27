@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {NgClass, NgOptimizedImage, NgStyle} from '@angular/common';
 import { Card } from '../../../models/Card';
+import {DeckCardDto} from '../../dto/DeckCardDto';
 
 @Component({
   selector: 'app-playing-card',
@@ -24,9 +25,9 @@ export class PlayingCardComponent implements OnChanges {
   @Input() cardIsHinted : boolean = false;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['cardIsSelected'].currentValue == true) {
+/*    if (changes['cardIsSelected'].currentValue == true) {
       this.cardIsSelected = false;
-    }
+    }*/
    }
 
   select() {

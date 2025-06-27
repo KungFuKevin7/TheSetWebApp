@@ -1,6 +1,7 @@
 import {createAction, props} from '@ngrx/store';
 import {Card} from '../../../models/Card';
 import {Set} from '../../../models/Set';
+import {DeckCardDto} from '../../dto/DeckCardDto';
 
 export const selectCard = createAction(
   '[Board] Select Card',
@@ -12,14 +13,15 @@ export const deselectCard = createAction(
   props<{Card : Card}>()
 )
 
-export const loadCardsOnBoard = createAction(
-  '[Board] Load Cards OnBoard'
+export const drawInitialCardsFromDeck = createAction(
+  '[Board] Draw Initial Cards From Deck',
+  props<{boardCards : DeckCardDto[]}>()
 );
-export const loadCardsOnBoardSuccess = createAction(
+export const drawInitialCardsFromDeckSuccess = createAction(
   '[Board] Load Cards On Board Success',
   props<{cards: Card[]}>()
 );
-export const loadCardsOnBoardFailure = createAction(
+export const drawInitialCardsFromDeckFailure = createAction(
   '[Board] Load Cards On Board Failure',
   props<{error : string}>()
 );

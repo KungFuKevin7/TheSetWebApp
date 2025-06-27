@@ -6,5 +6,5 @@ export interface DeckCardDto {
   shape : string;
   colour : string;
   displayed_amount : number;
-  game_id : number;
+  card_img : string;
 }

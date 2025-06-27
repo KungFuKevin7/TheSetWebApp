@@ -2,15 +2,13 @@ import {BoardState} from './BoardState';
 import {createReducer, on} from '@ngrx/store';
 import {
   deselectCard,
-  loadCardsOnBoard,
   selectCard,
   getFoundSets,
   validateSetFailed,
   getPossibleSets,
   getPossibleSetsFailure,
-  loadCardsOnBoardSuccess,
-  loadCardsOnBoardFailure,
-  removeCardsFromBoard
+  removeCardsFromBoard,
+  drawInitialCardsFromDeck,
 } from './board.actions';
 
 const initialState : BoardState = {
@@ -22,17 +20,19 @@ const initialState : BoardState = {
 
 export const boardReducer = createReducer(
   initialState,
-  on(loadCardsOnBoard, (state) => ({
-    ...state
+  on(drawInitialCardsFromDeck, (state, {boardCards}) => ({
+    ...state,
+    cardsOnBoard: [...boardCards],
   })),
-  on (loadCardsOnBoardSuccess, (state, {cards}) => ({
+
+/*  on (drawInitialCardsFromDeckSuccess, (state, {cards}) => ({
     ...state,
     cardsOnBoard: cards
   })),
-  on (loadCardsOnBoardFailure, (state, {error}) => ({
+  on (drawInitialCardsFromDeckFailure, (state, {error}) => ({
     ...state,
     error: error
-  })),
+  })),*/
 
   on(selectCard, (state, {card}) => ({
     ...state,

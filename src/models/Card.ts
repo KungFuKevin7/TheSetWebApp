@@ -1,8 +1,8 @@
 export interface Card {
 
   cardId? : number;
-  cardImg? : string;
-  displayedAmount? : number;
+  card_img? : string;
+  displayed_amount? : number;
   texture? : string;
   shape? : string;
   colour? : string;

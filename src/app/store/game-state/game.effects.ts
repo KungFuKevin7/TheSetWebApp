@@ -12,13 +12,22 @@ import {
   startGameFailure,
   startGameSuccess
 } from './game.actions';
-import {catchError, exhaustMap, map, mergeMap, of, switchMap, tap} from 'rxjs';
+import {catchError, exhaustMap, map, mergeMap, of, switchMap, take, tap, withLatestFrom} from 'rxjs';
 import {Router} from '@angular/router';
-import {setDeck} from '../cards-state/cards.actions';
+import {removeCardsFromDeck, setDeck} from '../cards-state/cards.actions';
+import {selectDeck} from '../cards-state/cards.selectors';
+import {drawInitialCardsFromDeck} from '../board-state/board.actions';
+import {Card} from '../../../models/Card';
+import {selectCurrentGameId} from './game.selectors';
+import {selectCardsOnBoard} from '../board-state/board.selector';
 
 @Injectable()
 export class GameStateEffects {
-  constructor(private gameService: GameService, private actions$ : Actions, private router : Router){}
+  constructor(private gameService: GameService,
+              private actions$ : Actions,
+              private router : Router,
+              private store : Store){}
+
 
   startGame$ = createEffect(
     () =>
@@ -41,12 +50,36 @@ export class GameStateEffects {
     () =>
       this.actions$.pipe(
         ofType(startGameSuccess),
-        tap(({gameId}) => {
+        tap(({ gameId }) => {
           this.router.navigate(['/play-game']);
+        })
+      ),
+    { functional: true, dispatch: false }
+  );
+
+  drawInitialCardsFromDeck$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(setDeck),
+        map(({ deck }) => {
+            const firstDraw = deck.slice(0,12);
+            this.store.dispatch(drawInitialCardsFromDeck({boardCards : firstDraw}));
         })
       ),
       {functional:true, dispatch:false}
     );
+
+  addCardsOnBoard$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(drawInitialCardsFromDeck),
+        withLatestFrom(this.store.select(selectCardsOnBoard), this.store.select(selectCurrentGameId)),
+        map(([action, boardCards, gameId]) => {
+          console.log("Hi Hi")
+          this.gameService.updateCardsOnBoard(boardCards, gameId).subscribe()
+        })
+      ),{functional: true, dispatch: false}
+  );
 
   selectGame$ = createEffect(
     () =>
@@ -71,4 +104,7 @@ export class GameStateEffects {
       )
     )
   );
+
+
+
 }

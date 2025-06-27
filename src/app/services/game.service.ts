@@ -6,6 +6,7 @@ import {Users} from '../../models/Users';
 import {Game} from '../../models/Game';
 import {DeckCardDto} from '../dto/DeckCardDto';
 import {GameInitDto} from '../dto/GameInitDto';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,10 @@ export class GameService {
   getGamesFromUser()
   {
     return this.http.get<Game[]>(`${this.gameAPIURL}/by-user`);
+  }
+
+  updateCardsOnBoard(cards : any, gameId : number) : Observable<void> {
+    return this.http.post<void>(`http://localhost:8080/api/cards-on-board/add-to/${gameId}`, cards);
   }
 
   initializeGame(deck : Card[]) : void {

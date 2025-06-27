@@ -8,6 +8,7 @@ import {CommonModule, NgFor} from '@angular/common';
 import {AppState} from '../../store/app.state';
 import * as GameSelectors from '../../store/game-state/game.selectors';
 import * as CardSelectors from '../../store/cards-state/cards.selectors';
+import * as BoardSelectors from '../../store/board-state/board.selector';
 import {Observable} from 'rxjs';
 import {Game} from '../../../models/Game';
 import {GameState} from '../../store/game-state/GameState';
@@ -37,7 +38,7 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
 
   currentGame$?: Observable<number | undefined>;
   currentDeck$?: Observable<Card[]>;
-
+  currentCardsOnBoard$?: Observable<Card[]>;
   triggerDeselect : boolean = false;
 
   constructor(private store : Store<{game : GameState}>)
@@ -47,11 +48,11 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
 
     this.currentGame$ = this.store.select(GameSelectors.selectCurrentGameId);
     this.currentDeck$ = this.store.select(CardSelectors.selectDeck);
+    this.currentCardsOnBoard$ = this.store.select(BoardSelectors.selectCardsOnBoard);
 
-    this.currentGame$.subscribe(
-      p =>
-        console.log(p)
-    )
+    this.currentCardsOnBoard$.subscribe(
+      p => console.log(p)
+    );
   }
 
   ngOnChanges(changes: SimpleChanges): void {

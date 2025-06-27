@@ -1,5 +1,4 @@
 import {createAction, props} from '@ngrx/store';
-import {Card} from '../../../models/Card';
 import {DeckCardDto} from '../../dto/DeckCardDto';
 
 export const loadDeck
@@ -20,15 +19,7 @@ export const setDeck = createAction(
   props<{deck: DeckCardDto[]}>()
 );
 
-
-/*
-export const selectCard = createAction(
-  '[Cards] Select Card',
-  props<{Card : Card}>()
-)
-
-export const deselectCard = createAction(
-  '[Cards] Deselect Card',
-  props<{Card : Card}>()
-)
-*/
+export const removeCardsFromDeck = createAction(
+  '[Cards] Remove Cards From Deck',
+  props<{cards : DeckCardDto[]}>()
+);

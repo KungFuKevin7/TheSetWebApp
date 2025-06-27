@@ -22,7 +22,7 @@ export class AuthService {
           //Store the generated token in the client (localstorage)
           console.log(response);
           localStorage.setItem('username', response.username);
-          localStorage.setItem('userid', response.userid);
+          /*localStorage.setItem('userid', response.userid);*/
           localStorage.setItem('expiresInMillis', response.expiresInMillis);
           localStorage.setItem('jwt_token', response.token);
           //this.isLoggedIn = true;
@@ -46,7 +46,6 @@ export class AuthService {
 
   logout() : void{
     localStorage.clear();
-    //this.isLoggedIn = false;
     this.router.navigate(['/']);
   }
 
@@ -71,10 +70,6 @@ export class AuthService {
 
     //return validity
     return Number(this.getExpirationDate()) > Date.now();
-  }
-
-  getUserId(){
-    return localStorage.getItem('userid');
   }
 
   removeAuthToken() {
