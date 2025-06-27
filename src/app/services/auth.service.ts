@@ -22,7 +22,7 @@ export class AuthService {
           //Store the generated token in the client (localstorage)
           console.log(response);
           localStorage.setItem('username', response.username);
-          /*localStorage.setItem('userid', response.userid);*/
+
           localStorage.setItem('expiresInMillis', response.expiresInMillis);
           localStorage.setItem('jwt_token', response.token);
           //this.isLoggedIn = true;

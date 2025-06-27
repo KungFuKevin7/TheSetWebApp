@@ -2,5 +2,6 @@ import {DeckCardDto} from './DeckCardDto';
 
 export interface GameInitDto {
   gameId: number;
-  deckCards : DeckCardDto[]
+  deckCards : DeckCardDto[];
+  cardsOnBoard : DeckCardDto[];
 }

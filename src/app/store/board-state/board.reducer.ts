@@ -10,6 +10,7 @@ import {
   removeCardsFromBoard,
   drawInitialCardsFromDeck,
 } from './board.actions';
+import {startExistingGameSuccess} from '../game-state/game.actions';
 
 const initialState : BoardState = {
   cardsOnBoard : [],
@@ -66,7 +67,12 @@ export const boardReducer = createReducer(
   on(removeCardsFromBoard, (state, {cards}) => ({
     ...state,
     cardsOnBoard: state.cardsOnBoard.filter(card => !cards.includes(card))
-  }))
+  })),
 
+  on(startExistingGameSuccess, (state, {cardsOnBoard}) => ({
+    ...state,
+    cardsOnBoard: cardsOnBoard,
+    selectedCards: []
+  }))
 
 )

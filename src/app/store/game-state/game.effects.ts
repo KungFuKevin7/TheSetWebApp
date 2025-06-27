@@ -7,12 +7,12 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {
   loadUserGames,
   loadUserGamesFailure,
-  loadUserGamesSuccess, selectGame,
+  loadUserGamesSuccess, startExistingGame, startExistingGameSuccess,
   startGame,
   startGameFailure,
   startGameSuccess
 } from './game.actions';
-import {catchError, exhaustMap, map, mergeMap, of, switchMap, take, tap, withLatestFrom} from 'rxjs';
+import {catchError, exhaust, exhaustMap, map, mergeMap, of, switchMap, take, tap, withLatestFrom} from 'rxjs';
 import {Router} from '@angular/router';
 import {removeCardsFromDeck, setDeck} from '../cards-state/cards.actions';
 import {selectDeck} from '../cards-state/cards.selectors';
@@ -29,6 +29,7 @@ export class GameStateEffects {
               private store : Store){}
 
 
+  //Start Game
   startGame$ = createEffect(
     () =>
     this.actions$.pipe(
@@ -81,15 +82,38 @@ export class GameStateEffects {
       ),{functional: true, dispatch: false}
   );
 
-  selectGame$ = createEffect(
+  //ExistingGame
+  startExistingGame$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(selectGame),tap(({game}) => {
+        ofType(startExistingGame),
+        exhaustMap(({gameId}) =>
+          this.gameService.getExistingGameState(gameId).pipe(
+            mergeMap(gameData => [
+              startExistingGameSuccess({
+                gameId : gameData.gameId,
+                deck : gameData.deckCards,
+                cardsOnBoard: gameData.cardsOnBoard
+              }),
+            ]),
+            catchError(error => of(loadUserGamesFailure({error: error}))),
+          )
+        )
+      )
+  );
+
+  navigateAfterLoad$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(startExistingGameSuccess),
+        tap(
+          () => {
           this.router.navigate(['/play-game']);
         })
       ),
     {functional:true, dispatch:false}
   )
+
 
   loadUserGames$ = createEffect(() =>
     this.actions$.pipe(

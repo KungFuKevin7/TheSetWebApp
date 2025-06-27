@@ -5,7 +5,7 @@ import {Users} from '../../../models/Users';
 import {Router, RouterLink} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
-import {loadUserGames, selectGame, startGame} from '../../store/game-state/game.actions';
+import {loadUserGames, selectGame, startExistingGame, startGame} from '../../store/game-state/game.actions';
 import {selectGamesOfUser} from '../../store/game-state/game.selectors';
 
 @Component({
@@ -38,6 +38,7 @@ export class SelectGameComponent implements OnInit {
   }
 
   onExistingGameClick(game: Game) {
-    this.store.dispatch(selectGame({game}));
+    console.log(game);
+    this.store.dispatch(startExistingGame({gameId : game.game_id}));
   }
 }

@@ -21,6 +21,7 @@ export const startGameFailure = createAction(
   props<{ error : string}>()
 );
 
+/*
 export const startExistingGame = createAction(
   '[Game Page] Start Existing Game',
   props<{gameId: number}>()
@@ -28,13 +29,14 @@ export const startExistingGame = createAction(
 
 export const startExistingGameSuccess = createAction(
   '[Game Page] Start Existing Game Success',
-  props<{game: Game, deck : DeckCardDto[], cardsOnBoard : DeckCardDto[]}>()
+  props<{gameId: number, deck : DeckCardDto[], cardsOnBoard : DeckCardDto[]}>()
 );
 
 export const startExistingGameFailure = createAction(
   '[Game Page] Start Existing Game Failure',
   props<{error: string}>()
 );
+*/
 
 export const endGame = createAction('[Game] End Game');
 
@@ -61,12 +63,22 @@ export const loadUserGamesFailure = createAction(
   props<{error : string}>()
 )
 
-export const selectCurrentGame = createAction(
+export const selectGame = createAction(
   '[Game] Select Current Game',
+  props<{game : Game}>()
+);
+
+export const startExistingGame = createAction(
+  '[Game Page] Start Existing Game',
   props<{gameId: number}>()
 );
 
-export const selectGame = createAction(
-  '[Game] Select Game]',
-  props<{game : Game}>()
+export const startExistingGameFailure = createAction(
+  '[Game Page] Start Existing Game Failure',
+  props<{error: string}>()
+);
+
+export const startExistingGameSuccess = createAction(
+  '[Game] Select Existing Game',
+  props<{gameId: number, deck : DeckCardDto[], cardsOnBoard : DeckCardDto[]}>()
 )

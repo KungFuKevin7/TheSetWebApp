@@ -4,7 +4,7 @@ import {
   endGame,
   loadUserGames,
   loadUserGamesFailure,
-  loadUserGamesSuccess, selectGame,
+  loadUserGamesSuccess, selectGame, startExistingGame, startExistingGameSuccess,
   startGame, startGameFailure, startGameSuccess,
   testAction
 } from './game.actions';
@@ -33,6 +33,13 @@ export const gameReducer = createReducer(
   on(startGameFailure, (state, {error}) => ({
     ...state,
     error: error
+  })),
+  on(startExistingGame, (state, {gameId})=>({
+    ...state,
+  })),
+  on(startExistingGameSuccess, (state, {gameId})=>({
+    ...state,
+    currentGameId : gameId,
   })),
   on(endGame, (state)=>({
     ...state,

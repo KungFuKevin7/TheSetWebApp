@@ -13,6 +13,7 @@ import {Observable} from 'rxjs';
 })
 export class GameService {
 
+
   gameAPIURL = `${API_URL}/game`;
 
   constructor(private http : HttpClient) {
@@ -23,9 +24,9 @@ export class GameService {
     return this.http.post<Game>(`${this.gameAPIURL}/start-new`, "");
   }
 
-  startGameWithDeck()
+  startGameWithDeck(): Observable<GameInitDto>
   {
-    return this.http.post<GameInitDto>(`${this.gameAPIURL}/start-game-with-deck`, "");
+    return this.http.post<GameInitDto>(`${this.gameAPIURL}/start-new-with-deck`, "");
   }
 
 
@@ -36,6 +37,10 @@ export class GameService {
 
   updateCardsOnBoard(cards : any, gameId : number) : Observable<void> {
     return this.http.post<void>(`http://localhost:8080/api/cards-on-board/add-to/${gameId}`, cards);
+  }
+
+  getExistingGameState(gameId : number): Observable<GameInitDto> {
+    return this.http.get<GameInitDto>(`http://localhost:8080/api/game/start/${gameId}`);
   }
 
   initializeGame(deck : Card[]) : void {
