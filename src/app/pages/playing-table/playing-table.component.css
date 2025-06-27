@@ -1,0 +1,12 @@
+.selected {
+  background-color: #f2ffad;
+}
+
+.playing-card:hover {
+  background-color: #f2ffad;
+}
+
+.card-background {
+  border: black 1px solid;
+  border-radius: 5px;
+}

@@ -10,7 +10,11 @@ export const selectCard = createAction(
 
 export const deselectCard = createAction(
   '[Board] Deselect Card',
-  props<{Card : Card}>()
+  props<{selectedCard : Card}>()
+)
+
+export const resetSelection = createAction(
+  '[Cards] Reset Selected Cards'
 )
 
 export const drawInitialCardsFromDeck = createAction(

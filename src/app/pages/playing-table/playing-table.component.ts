@@ -9,11 +9,13 @@ import {AppState} from '../../store/app.state';
 import * as GameSelectors from '../../store/game-state/game.selectors';
 import * as CardSelectors from '../../store/cards-state/cards.selectors';
 import * as BoardSelectors from '../../store/board-state/board.selector';
-import {Observable} from 'rxjs';
+import {Observable, take} from 'rxjs';
 import {Game} from '../../../models/Game';
 import {GameState} from '../../store/game-state/GameState';
 import {DeckCardDto} from '../../dto/DeckCardDto';
 import {cardsStateSelector} from '../../store/cards-state/cards.selectors';
+import {selectSelectedCards} from '../../store/board-state/board.selector';
+import {deselectCard, selectCard} from '../../store/board-state/board.actions';
 @Component({
   selector: 'app-playing-table',
   standalone: true,
@@ -40,6 +42,7 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
   currentDeck$?: Observable<Card[]>;
   currentCardsOnBoard$?: Observable<Card[]>;
   triggerDeselect : boolean = false;
+  selectedCards$?: Observable<Card[]>; //this.store.select(selectSelectedCards);
 
   constructor(private store : Store<{game : GameState}>)
   {}
@@ -49,10 +52,25 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
     this.currentGame$ = this.store.select(GameSelectors.selectCurrentGameId);
     this.currentDeck$ = this.store.select(CardSelectors.selectDeck);
     this.currentCardsOnBoard$ = this.store.select(BoardSelectors.selectCardsOnBoard);
+    this.selectedCards$ = this.store.select(BoardSelectors.selectSelectedCards);
 
     this.currentCardsOnBoard$.subscribe(
       p => console.log(p)
     );
+
+    this.selectedCards$.subscribe(
+      p => console.log(p)
+    );
+  }
+
+  clickCard(card : Card){
+    this.selectedCards$?.pipe(take(1)).subscribe(selected => {
+      if (selected.includes(card)) {
+        this.store.dispatch(deselectCard({selectedCard : card}));
+      }else {
+        this.store.dispatch(selectCard({card : card}));
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -64,7 +82,7 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
 
-  clickCard(card: Card){
+  /*clickCard(card: Card){
     //If already in selected list, remove from selected list (Deselect)
     //this.playingTableSharedService.changeSelectedCards(card);
     if (this.selectedCards.includes(card))
@@ -80,7 +98,7 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
       this.checkSet();
     }
   }
-
+*/
   checkSet(){
     //send to api for review
  /*   this.playingTableService.checkIfSet(this.selectedCards).subscribe(
@@ -99,12 +117,6 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
 
   handleTriggerDeselect(){
     this.triggerDeselect = !this.triggerDeselect;
-  }
-
-  removePlayingCard(card: Card){
-
-
-    //this.selectedCards.splice(this.selectedCards.indexOf(card), 1);
   }
 
 }

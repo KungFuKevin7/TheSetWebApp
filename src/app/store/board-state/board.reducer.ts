@@ -39,10 +39,9 @@ export const boardReducer = createReducer(
     ...state,
     selectedCards: [...state.selectedCards, card]
   })),
-  on(deselectCard, (state, {Card}) => ({
+  on(deselectCard, (state, {selectedCard}) => ({
     ...state,
-    selectedCards: state.selectedCards.filter((card) => card.cardId !== Card.cardId)
-
+    selectedCards: state.selectedCards.filter((card) => card.cardId !== selectedCard.cardId)
   })),
   on(getFoundSets, (state, {sets}) => ({
     ...state,

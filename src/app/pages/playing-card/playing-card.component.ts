@@ -30,7 +30,7 @@ export class PlayingCardComponent implements OnChanges {
     }*/
    }
 
-  select() {
+/*  select() {
 
     //Check if already selected
     if (this.cardIsSelected) {
@@ -43,7 +43,7 @@ export class PlayingCardComponent implements OnChanges {
 
     //Share the playing card with parent
     this.playingCardToShare.emit(this.playingCard);
-  }
+  }*/
 
   //Set selected card as false
   deselect() {

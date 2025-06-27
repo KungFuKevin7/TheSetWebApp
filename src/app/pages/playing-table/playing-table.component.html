@@ -6,7 +6,10 @@
       </h1>
     </div>
 
-    <div *ngFor="let card of currentCardsOnBoard$ | async " class="col-sm-3">
+    <div *ngFor="let card of currentCardsOnBoard$ | async "
+         [class.selected]="(selectedCards$ | async)?.includes(card)"
+         (click)="clickCard(card)"
+         class="col-sm-3 playing-card card-background">
       <app-playing-card [playingCard]="card">
 
       </app-playing-card>
