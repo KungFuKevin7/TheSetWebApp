@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {PlayingCardComponent} from '../playing-card/playing-card.component';
-import {PlayingTableService} from '../../services/playing-table.service';
 import {Card} from '../../../models/Card';
 import {Store} from '@ngrx/store';
 import {FormsModule} from '@angular/forms';
@@ -43,6 +42,7 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
   currentCardsOnBoard$?: Observable<DeckCardDto[]>;
   triggerDeselect : boolean = false;
   selectedCards$?: Observable<Card[]>; //this.store.select(selectSelectedCards);
+  hintedCards$?: Observable<Card[]>;
 
   constructor(private store : Store<{game : GameState}>)
   {}

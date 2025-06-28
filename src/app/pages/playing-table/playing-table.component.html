@@ -7,6 +7,7 @@
     </div>
 
     <div *ngFor="let card of currentCardsOnBoard$ | async "
+         [class.hinted]="(hintedCards$ | async)?.includes(card)"
          [class.selected]="(selectedCards$ | async)?.includes(card)"
          (click)="clickCard(card)"
          class="col-sm-3 playing-card card-background">

@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {AppState} from '../app.state';
-import {PlayingTableService} from '../../services/playing-table.service';
 import {GameService} from '../../services/game.service';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {
@@ -15,9 +13,7 @@ import {
 import {catchError, exhaust, exhaustMap, map, mergeMap, of, switchMap, take, tap, withLatestFrom} from 'rxjs';
 import {Router} from '@angular/router';
 import {removeCardsFromDeck, setDeck} from '../cards-state/cards.actions';
-import {selectDeck} from '../cards-state/cards.selectors';
 import {drawInitialCardsFromDeck} from '../board-state/board.actions';
-import {Card} from '../../../models/Card';
 import {selectCurrentGameId} from './game.selectors';
 import {selectCardsOnBoard} from '../board-state/board.selector';
 
@@ -64,7 +60,9 @@ export class GameStateEffects {
         ofType(setDeck),
         map(({ deck }) => {
             const firstDraw = deck.slice(0,12);
-            this.store.dispatch(drawInitialCardsFromDeck({boardCards : firstDraw}));
+            this.store.dispatch(drawInitialCardsFromDeck(
+              {boardCards : firstDraw})
+            );
         })
       ),
       {functional:true, dispatch:false}

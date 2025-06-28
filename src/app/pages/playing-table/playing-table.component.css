@@ -2,6 +2,10 @@
   background-color: #f2ffad;
 }
 
+.hinted {
+  background-color: #9cffb6;
+}
+
 .playing-card:hover {
   background-color: #f2ffad;
 }

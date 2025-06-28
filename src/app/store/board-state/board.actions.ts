@@ -6,15 +6,20 @@ import {DeckCardDto} from '../../dto/DeckCardDto';
 export const selectCard = createAction(
   '[Board] Select Card',
   props<{card : DeckCardDto}>()
-)
+);
 
 export const deselectCard = createAction(
   '[Board] Deselect Card',
   props<{selectedCard : Card}>()
-)
+);
 
 export const resetSelection = createAction(
   '[Cards] Reset Selected Cards'
+);
+
+export const giveHint = createAction(
+  '[Cards] Give Hint',
+  props<{cards: DeckCardDto[]}>()
 )
 
 export const drawInitialCardsFromDeck = createAction(

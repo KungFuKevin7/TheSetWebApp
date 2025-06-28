@@ -13,6 +13,11 @@ export const selectSelectedCards = createSelector(
   (state) => state.selectedCards
 );
 
+export const selectHintedCards = createSelector(
+  cardsStateSelector,
+  (state) => state.hintedCards
+)
+
 export const selectPossibleSets = createSelector(
   cardsStateSelector,
   (state) => state.possibleSets

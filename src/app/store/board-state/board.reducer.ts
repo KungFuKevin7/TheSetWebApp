@@ -8,13 +8,15 @@ import {
   getPossibleSets,
   getPossibleSetsFailure,
   removeCardsFromBoard,
-  drawInitialCardsFromDeck,
+  drawInitialCardsFromDeck, giveHint,
 } from './board.actions';
 import {startExistingGameSuccess} from '../game-state/game.actions';
+import {state} from '@angular/animations';
 
 const initialState : BoardState = {
   cardsOnBoard : [],
   //foundSets : [],
+  hintedCards : [],
   selectedCards : [],
   possibleSets : []
 }
@@ -43,9 +45,9 @@ export const boardReducer = createReducer(
     ...state,
     selectedCards: state.selectedCards.filter((card) => card.cardId !== selectedCard.cardId)
   })),
-  on(getFoundSets, (state, {sets}) => ({
+  on(giveHint, (state, {cards}) =>({
     ...state,
-    foundSets: sets
+    hintedCards : cards
   })),
 
   on(validateSetFailed, (state, {error}) => ({

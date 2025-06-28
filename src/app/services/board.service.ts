@@ -6,9 +6,10 @@ import {map, Observable} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class PlayingTableService {
+export class BoardService {
 
   constructor(private http: HttpClient) { }
+/*
 
   getTablePlayingCards() : Observable<Card[]> {
 
@@ -18,6 +19,7 @@ export class PlayingTableService {
   checkIfSet(possibleSetCards: Card[]){
     return this.http.post<boolean>("http://localhost:8080/api/check-set", possibleSetCards);
   }
+*/
 
   getSetHint(cardsOnTable: Card[]){
     return this.http.post<Card[]>(`http://localhost:8080/api/check-set/hint`, cardsOnTable);

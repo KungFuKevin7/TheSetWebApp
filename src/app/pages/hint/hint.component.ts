@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
-import {PlayingTableService} from '../../services/playing-table.service';
+import {BoardService} from '../../services/board.service';
 import {Card} from '../../../models/Card';
 import {Router} from '@angular/router';
 import {NgOptimizedImage} from '@angular/common';
@@ -13,14 +13,14 @@ import {NgOptimizedImage} from '@angular/common';
   templateUrl: './hint.component.html',
   styleUrl: './hint.component.css'
 })
-export class HintComponent implements OnInit{
+export class HintComponent implements OnInit{/*
   @Input() playingCards! : Card[];
   @Input() hintedCards! : Card[];
-  @Input() hintRequest : boolean = false;
+  @Input() hintRequest : boolean = false;*/
 
   displayHint : boolean = false;
 
-  constructor(private playingTableService : PlayingTableService) { }
+  constructor(private boardService : BoardService) { }
 
 
   ngOnInit(): void {
@@ -33,7 +33,8 @@ export class HintComponent implements OnInit{
   }
 
   requestHint(){
-    if (this.displayHint){
+
+/*    if (this.displayHint){
       this.displayHint = false;
     }else{
       this.playingTableService.getSetHint(this.playingCards).subscribe(
@@ -44,9 +45,6 @@ export class HintComponent implements OnInit{
       )
 
       this.displayHint = true;
-    }
-
-
-
+    }*/
   }
 }
