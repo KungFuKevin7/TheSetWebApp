@@ -4,7 +4,7 @@ import {DeckCardDto} from '../../dto/DeckCardDto';
 
 export interface BoardState {
   cardsOnBoard: DeckCardDto[];
-  selectedCards: Card[];
+  selectedCards: DeckCardDto[];
   //foundSets : Set[];
   possibleSets: Set[];
 }

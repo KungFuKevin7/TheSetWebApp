@@ -16,6 +16,8 @@ import {GameStateEffects} from './store/game-state/game.effects';
 import {cardsReducer} from './store/cards-state/cards.reducer';
 import {setReducer} from './store/set-state/set.reducer';
 import {boardReducer} from './store/board-state/board.reducer';
+import {SetEffects} from './store/set-state/set.effects';
+import {BoardEffects} from './store/board-state/board-effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }),
@@ -30,6 +32,8 @@ export const appConfig: ApplicationConfig = {
     provideState({name: 'cards', reducer: cardsReducer}),
     provideState({name: 'board', reducer: boardReducer}),
     provideEffects(GameStateEffects),
+    provideEffects(SetEffects),
+    provideEffects(BoardEffects),
     provideHttpClient(withInterceptorsFromDi()),
     {
       provide: HTTP_INTERCEPTORS,

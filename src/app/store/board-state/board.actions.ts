@@ -5,7 +5,7 @@ import {DeckCardDto} from '../../dto/DeckCardDto';
 
 export const selectCard = createAction(
   '[Board] Select Card',
-  props<{card : Card}>()
+  props<{card : DeckCardDto}>()
 )
 
 export const deselectCard = createAction(

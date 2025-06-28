@@ -40,7 +40,7 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
 
   currentGame$?: Observable<number | undefined>;
   currentDeck$?: Observable<Card[]>;
-  currentCardsOnBoard$?: Observable<Card[]>;
+  currentCardsOnBoard$?: Observable<DeckCardDto[]>;
   triggerDeselect : boolean = false;
   selectedCards$?: Observable<Card[]>; //this.store.select(selectSelectedCards);
 
@@ -63,7 +63,7 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
     );
   }
 
-  clickCard(card : Card){
+  clickCard(card : DeckCardDto){
     this.selectedCards$?.pipe(take(1)).subscribe(selected => {
       if (selected.includes(card)) {
         this.store.dispatch(deselectCard({selectedCard : card}));

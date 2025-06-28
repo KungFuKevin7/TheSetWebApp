@@ -1,6 +1,9 @@
 import {createAction, props} from '@ngrx/store';
 import {Card} from '../../../models/Card';
 import {Set} from '../../../models/Set';
+import {DeckCardDto} from '../../dto/DeckCardDto';
+import {SetDto} from '../../dto/SetDto';
+import {SetResponseDto} from '../../dto/SetResponseDto';
 
 export const loadFoundSets = createAction(
   '[Set] Load Found Sets');
@@ -16,12 +19,12 @@ export const loadFoundSetsFailure = createAction(
 
 export const validateSet = createAction(
   '[Set] Validate Set',
-  props<{cards: Card[]}>()
+  props<{cards: DeckCardDto[], gameId : number}>()
 );
 
 export const validateSetSuccess = createAction(
   '[Set] Validate Set Success',
-  props<{validSet: Set}>()
+  props<{validSet: SetResponseDto}>()
 )
 
 export const validateSetFailure = createAction(

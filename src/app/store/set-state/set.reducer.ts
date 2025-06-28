@@ -21,12 +21,12 @@ export const setReducer = createReducer(
     cardsToCheck: cards
     //Cards will be used in the Effects not the Reducer
   })),
-  on(validateSetSuccess, (state, {validSet}) => ({
+/*  on(validateSetSuccess, (state, {validSet}) => ({
     ...state,
     loading: true,
     foundSets: [...state.foundSets, validSet]
     //Cards will be used in the Effects not the Reducer
-  })),
+  })),*/
   on(validateSetFailure, (state, {error}) => ({
     ...state,
     loading: false,

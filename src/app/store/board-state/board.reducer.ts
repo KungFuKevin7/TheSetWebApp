@@ -73,5 +73,4 @@ export const boardReducer = createReducer(
     cardsOnBoard: cardsOnBoard,
     selectedCards: []
   }))
-
 )
