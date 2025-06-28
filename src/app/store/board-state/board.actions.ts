@@ -59,3 +59,7 @@ export const removeCardsFromBoard = createAction(
   '[Board] Remove Cards From Board',
   props<{cards : Card[]}>()
 );
+
+export const resetBoardState = createAction(
+  '[Board] Reset Board State',
+)

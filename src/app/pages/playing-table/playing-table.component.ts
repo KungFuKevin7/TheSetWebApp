@@ -54,9 +54,11 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
     this.currentCardsOnBoard$ = this.store.select(BoardSelectors.selectCardsOnBoard);
     this.selectedCards$ = this.store.select(BoardSelectors.selectSelectedCards);
 
+/*
     this.currentCardsOnBoard$.subscribe(
       p => console.log(p)
     );
+*/
 
     this.selectedCards$.subscribe(
       p => console.log(p)

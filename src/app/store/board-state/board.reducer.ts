@@ -8,7 +8,7 @@ import {
   getPossibleSets,
   getPossibleSetsFailure,
   removeCardsFromBoard,
-  drawInitialCardsFromDeck, giveHint,
+  drawInitialCardsFromDeck, giveHint, resetBoardState,
 } from './board.actions';
 import {startExistingGameSuccess} from '../game-state/game.actions';
 import {state} from '@angular/animations';
@@ -74,5 +74,6 @@ export const boardReducer = createReducer(
     ...state,
     cardsOnBoard: cardsOnBoard,
     selectedCards: []
-  }))
-)
+  })),
+  on(resetBoardState,() =>  initialState)
+);

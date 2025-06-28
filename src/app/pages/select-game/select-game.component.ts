@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {loadUserGames, selectGame, startExistingGame, startGame} from '../../store/game-state/game.actions';
 import {selectGamesOfUser} from '../../store/game-state/game.selectors';
+import {resetBoardState} from '../../store/board-state/board.actions';
 
 @Component({
   selector: 'app-select-game',
@@ -29,7 +30,6 @@ export class SelectGameComponent implements OnInit {
   ngOnInit()
   {
     this.store.dispatch(loadUserGames());
-    //this.store.
     this.games$ = this.store.select(selectGamesOfUser);
   }
 

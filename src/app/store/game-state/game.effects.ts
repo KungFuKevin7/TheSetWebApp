@@ -34,7 +34,8 @@ export class GameStateEffects {
           this.gameService.startGameWithDeck().pipe(
             mergeMap(gameInitDto => [
                 startGameSuccess({ gameId : gameInitDto.gameId }),
-                setDeck({deck: gameInitDto.deckCards})
+                setDeck({deck: gameInitDto.deckCards}),
+                drawInitialCardsFromDeck({boardCards: gameInitDto.cardsOnBoard})
               ]),
             catchError(error =>
               of(startGameFailure({error: error}))),
@@ -54,7 +55,7 @@ export class GameStateEffects {
     { functional: true, dispatch: false }
   );
 
-  drawInitialCardsFromDeck$ = createEffect(
+/*  drawInitialCardsFromDeck$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(setDeck),
@@ -66,8 +67,8 @@ export class GameStateEffects {
         })
       ),
       {functional:true, dispatch:false}
-    );
-
+    );*/
+/*
   addCardsOnBoard$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -78,7 +79,7 @@ export class GameStateEffects {
           this.gameService.updateCardsOnBoard(boardCards, gameId).subscribe()
         })
       ),{functional: true, dispatch: false}
-  );
+  );*/
 
   //ExistingGame
   startExistingGame$ = createEffect(
