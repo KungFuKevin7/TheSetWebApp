@@ -29,6 +29,7 @@ export class SelectGameComponent implements OnInit {
 
   ngOnInit()
   {
+    this.store.dispatch(resetBoardState());
     this.store.dispatch(loadUserGames());
     this.games$ = this.store.select(selectGamesOfUser);
   }
