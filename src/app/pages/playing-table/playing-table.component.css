@@ -1,9 +1,9 @@
-.selected {
-  background-color: #f2ffad;
+.hinted {
+  background-color: #65ff8d;
 }
 
-.hinted {
-  background-color: #9cffb6;
+.selected {
+  background-color: #f2ffad;
 }
 
 .playing-card:hover {

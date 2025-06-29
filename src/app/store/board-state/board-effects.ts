@@ -1,30 +1,31 @@
 import {Injectable} from '@angular/core';
-import {exhaustMap, map, mergeMap, Observable, tap} from 'rxjs';
+import {catchError, exhaustMap, map, mergeMap, Observable, of, tap, withLatestFrom} from 'rxjs';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {GameService} from '../../services/game.service';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
-import {giveHint} from './board.actions';
+import {requestHint, requestHintFailure, requestHintSuccess} from './board.actions';
 import {BoardService} from '../../services/board.service';
 import {selectHintedCards} from './board.selector';
+import {selectCurrentGameId} from '../game-state/game.selectors';
 
 @Injectable()
 export class BoardEffects {
   constructor(private actions$ : Actions,
-              private router : Router,
               private store : Store,
               private boardService : BoardService) {}
 
-  /*giveHint$ = createEffect(
+  giveHint$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(giveHint),
-        exhaustMap(({cards}) =>
-          this.boardService.getSetHint(cards).pipe(
-            result => {
-            }
+        ofType(requestHint),
+        withLatestFrom(this.store.select(selectCurrentGameId)),
+        exhaustMap(([action, gameId]) =>
+          this.boardService.getSetHint(gameId).pipe(
+            map(hint => requestHintSuccess({hintedCards : hint})),
+            catchError(err => of(requestHintFailure({ error : err })))
           )
         )
-      )
-    )*/
+    )
+  );
 }

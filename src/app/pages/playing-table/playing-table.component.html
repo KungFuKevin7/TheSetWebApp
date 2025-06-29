@@ -6,21 +6,18 @@
       </h1>
     </div>
 
-    <div *ngFor="let card of currentCardsOnBoard$ | async "
-         [class.hinted]="(hintedCards$ | async)?.includes(card)"
-         [class.selected]="(selectedCards$ | async)?.includes(card)"
-         (click)="clickCard(card)"
-         class="col-sm-3 playing-card card-background">
-      <app-playing-card [playingCard]="card">
+    <ng-container *ngIf="(hintedCards$ | async) as hintedCards">
+      <div *ngFor="let card of currentCardsOnBoard$ | async "
+           [class.hinted]="isHinted(card.cardId, hintedCards)"
+           [class.selected]="(selectedCards$ | async)?.includes(card)"
+           (click)="clickCard(card)"
+           class="col-sm-3 playing-card card-background">
+            <app-playing-card [playingCard]="card">
 
-      </app-playing-card>
-    </div>
-
-<!--    <div *ngIf="currentDeck$ | async as currentDeck">
-      <div *ngFor="let card of currentDeck">
-        <p>{{card.cardId}}</p>
+            </app-playing-card>
       </div>
-    </div>-->
+    </ng-container>
+
   </div>
 </div>
 

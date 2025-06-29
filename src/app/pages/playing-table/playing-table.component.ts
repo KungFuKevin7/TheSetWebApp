@@ -35,7 +35,6 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
   //public playingCards$ = this.store.select(selectCards);
 
   //Cards that are selected for review
-  @Input() selectedCards : Card[] = [];
 
   currentGame$?: Observable<number | undefined>;
   currentDeck$?: Observable<Card[]>;
@@ -53,14 +52,17 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
     this.currentDeck$ = this.store.select(CardSelectors.selectDeck);
     this.currentCardsOnBoard$ = this.store.select(BoardSelectors.selectCardsOnBoard);
     this.selectedCards$ = this.store.select(BoardSelectors.selectSelectedCards);
+    this.hintedCards$ = this.store.select(BoardSelectors.selectHintedCards);
 
-/*
     this.currentCardsOnBoard$.subscribe(
       p => console.log(p)
     );
-*/
 
     this.selectedCards$.subscribe(
+      p => console.log(p)
+    )
+
+    this.hintedCards$.subscribe(
       p => console.log(p)
     );
   }
@@ -83,24 +85,6 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
 
   }
 
-
-  /*clickCard(card: Card){
-    //If already in selected list, remove from selected list (Deselect)
-    //this.playingTableSharedService.changeSelectedCards(card);
-    if (this.selectedCards.includes(card))
-    {
-      this.removePlayingCard(card);
-    }
-    //Otherwise add card
-    else{
-      this.selectedCards.push(card);
-    }
-    //If 3 cards are selected, check set validity
-    if (this.selectedCards.length == 3){
-      this.checkSet();
-    }
-  }
-*/
   checkSet(){
     //send to api for review
  /*   this.playingTableService.checkIfSet(this.selectedCards).subscribe(
@@ -115,6 +99,9 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
         this.selectedCards = [];
       }
     );*/
+  }
+  isHinted(cardId: number, hintedCards: Card[]): boolean {
+    return hintedCards.some(h => h.cardId === cardId);
   }
 
   handleTriggerDeselect(){

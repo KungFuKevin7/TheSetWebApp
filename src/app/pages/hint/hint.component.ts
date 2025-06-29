@@ -3,12 +3,19 @@ import {BoardService} from '../../services/board.service';
 import {Card} from '../../../models/Card';
 import {Router} from '@angular/router';
 import {NgOptimizedImage} from '@angular/common';
+import { Observable} from 'rxjs';
+import {DeckCardDto} from '../../dto/DeckCardDto';
+import {Store} from '@ngrx/store';
+import {GameState} from '../../store/game-state/GameState';
+import {selectHintedCards} from '../../store/board-state/board.selector';
+import {requestHint} from '../../store/board-state/board.actions';
+import {selectCurrentGameId} from '../../store/game-state/game.selectors';
+import {BoardState} from '../../store/board-state/BoardState';
 
 @Component({
   selector: 'app-hint',
   standalone: true,
   imports: [
-    NgOptimizedImage
   ],
   templateUrl: './hint.component.html',
   styleUrl: './hint.component.css'
@@ -18,13 +25,10 @@ export class HintComponent implements OnInit{/*
   @Input() hintedCards! : Card[];
   @Input() hintRequest : boolean = false;*/
 
-  displayHint : boolean = false;
-
-  constructor(private boardService : BoardService) { }
+  constructor(private store : Store) { }
 
 
   ngOnInit(): void {
-
   /*  this.playingTableSharedService.playingCardsOnTable$.subscribe(
       response => {
         this.playingCards = response;
@@ -33,18 +37,8 @@ export class HintComponent implements OnInit{/*
   }
 
   requestHint(){
+    this.store.dispatch(requestHint());
 
-/*    if (this.displayHint){
-      this.displayHint = false;
-    }else{
-      this.playingTableService.getSetHint(this.playingCards).subscribe(
-        response => {
-          console.log(response);
-          this.hintedCards = response;
-        }
-      )
-
-      this.displayHint = true;
-    }*/
   }
+
 }

@@ -17,9 +17,19 @@ export const resetSelection = createAction(
   '[Cards] Reset Selected Cards'
 );
 
-export const giveHint = createAction(
-  '[Cards] Give Hint',
-  props<{cards: DeckCardDto[]}>()
+export const requestHint = createAction(
+  '[Board] Give Hint'
+)
+export const requestHintSuccess = createAction(
+  '[Board] Request Hint Success',
+  props<{hintedCards : DeckCardDto[]}>()
+)
+export const requestHintFailure = createAction(
+  '[Board] Request Hint Failure',
+  props<{error: string}>()
+)
+export const clearHintedCards = createAction(
+  '[Cards] Clear Cards'
 )
 
 export const drawInitialCardsFromDeck = createAction(
