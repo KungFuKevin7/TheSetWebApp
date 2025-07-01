@@ -36,14 +36,6 @@ export const drawInitialCardsFromDeck = createAction(
   '[Board] Draw Initial Cards From Deck',
   props<{boardCards : DeckCardDto[]}>()
 );
-export const drawInitialCardsFromDeckSuccess = createAction(
-  '[Board] Load Cards On Board Success',
-  props<{cards: Card[]}>()
-);
-export const drawInitialCardsFromDeckFailure = createAction(
-  '[Board] Load Cards On Board Failure',
-  props<{error : string}>()
-);
 
 export const getFoundSets = createAction(
   '[Board] Get Found Sets',
@@ -65,9 +57,14 @@ export const getPossibleSetsFailure = createAction(
   props<{error : string}>()
 );
 
+export const addCardsToBoard = createAction(
+  '[Board] Add Cards to Board',
+  props<{cards: DeckCardDto[]}>()
+)
+
 export const removeCardsFromBoard = createAction(
   '[Board] Remove Cards From Board',
-  props<{cards : Card[]}>()
+  props<{cards : DeckCardDto[]}>()
 );
 
 export const resetBoardState = createAction(

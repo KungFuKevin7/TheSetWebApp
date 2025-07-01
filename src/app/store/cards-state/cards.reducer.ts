@@ -2,7 +2,6 @@ import {CardsState} from './CardsState';
 import {createReducer, on} from '@ngrx/store';
 import {state} from '@angular/animations';
 import {loadDeckFailure, loadDeckSuccess, setDeck} from './cards.actions';
-import {removeCardsFromBoard} from '../board-state/board.actions';
 import {startExistingGameSuccess} from '../game-state/game.actions';
 const initialState: CardsState = {
   cardDeck : [],
@@ -26,10 +25,10 @@ export const cardsReducer = createReducer(
     error: error
   })),
 
-  on(removeCardsFromBoard, (state, {cards}) => ({
+/*  on(removeCardsFromBoard, (state, {cards}) => ({
     ...state,
     cardDeck : state.cardDeck.filter(card => !cards.includes(card))
-  })),
+  })),*/
 
   on(startExistingGameSuccess, (state, {deck}) => ({
     ...state,

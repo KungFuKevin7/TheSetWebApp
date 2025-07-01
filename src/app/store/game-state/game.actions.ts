@@ -3,6 +3,7 @@ import {Card} from '../../../models/Card';
 import {Game} from '../../../models/Game';
 import {Users} from '../../../models/Users';
 import {DeckCardDto} from '../../dto/DeckCardDto';
+import {GameStatsDto} from '../../dto/GameStatsDto';
 
 export const testAction = createAction(
   '[Game Page] Test Action'
@@ -20,23 +21,6 @@ export const startGameFailure = createAction(
   '[Game Page] Start Game Failure',
   props<{ error : string}>()
 );
-
-/*
-export const startExistingGame = createAction(
-  '[Game Page] Start Existing Game',
-  props<{gameId: number}>()
-);
-
-export const startExistingGameSuccess = createAction(
-  '[Game Page] Start Existing Game Success',
-  props<{gameId: number, deck : DeckCardDto[], cardsOnBoard : DeckCardDto[]}>()
-);
-
-export const startExistingGameFailure = createAction(
-  '[Game Page] Start Existing Game Failure',
-  props<{error: string}>()
-);
-*/
 
 export const endGame = createAction('[Game] End Game');
 
@@ -80,5 +64,13 @@ export const startExistingGameFailure = createAction(
 
 export const startExistingGameSuccess = createAction(
   '[Game] Select Existing Game',
-  props<{gameId: number, deck : DeckCardDto[], cardsOnBoard : DeckCardDto[]}>()
+  props<{gameId: number,
+    deck : DeckCardDto[],
+    cardsOnBoard : DeckCardDto[],
+    gameStats : GameStatsDto}>()
+);
+
+export const setGameStats = createAction(
+  '[Game] Select Game Stats',
+  props<{gameStats : GameStatsDto}>()
 )

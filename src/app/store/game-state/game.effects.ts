@@ -5,7 +5,7 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {
   loadUserGames,
   loadUserGamesFailure,
-  loadUserGamesSuccess, startExistingGame, startExistingGameSuccess,
+  loadUserGamesSuccess, setGameStats, startExistingGame, startExistingGameSuccess,
   startGame,
   startGameFailure,
   startGameSuccess
@@ -32,10 +32,11 @@ export class GameStateEffects {
       ofType(startGame),
         exhaustMap(() =>
           this.gameService.startGameWithDeck().pipe(
-            mergeMap(gameInitDto => [
-                startGameSuccess({ gameId : gameInitDto.gameId }),
-                setDeck({deck: gameInitDto.deckCards}),
-                drawInitialCardsFromDeck({boardCards: gameInitDto.cardsOnBoard})
+            mergeMap(gameStateDto => [
+                startGameSuccess({ gameId : gameStateDto.gameId }),
+                setDeck({deck: gameStateDto.deckCards}),
+                drawInitialCardsFromDeck({boardCards: gameStateDto.cardsOnBoard}),
+                setGameStats({gameStats: gameStateDto.gameStats}),
               ]),
             catchError(error =>
               of(startGameFailure({error: error}))),
@@ -92,7 +93,8 @@ export class GameStateEffects {
               startExistingGameSuccess({
                 gameId : gameData.gameId,
                 deck : gameData.deckCards,
-                cardsOnBoard: gameData.cardsOnBoard
+                cardsOnBoard: gameData.cardsOnBoard,
+                gameStats: gameData.gameStats
               }),
             ]),
             catchError(error => of(loadUserGamesFailure({error: error}))),

@@ -5,7 +5,7 @@ import {API_URL} from '../.constants';
 import {Users} from '../../models/Users';
 import {Game} from '../../models/Game';
 import {DeckCardDto} from '../dto/DeckCardDto';
-import {GameInitDto} from '../dto/GameInitDto';
+import {GameStateDto} from '../dto/GameStateDto';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -24,9 +24,9 @@ export class GameService {
     return this.http.post<Game>(`${this.gameAPIURL}/start-new`, "");
   }
 
-  startGameWithDeck(): Observable<GameInitDto>
+  startGameWithDeck(): Observable<GameStateDto>
   {
-    return this.http.post<GameInitDto>(`${this.gameAPIURL}/start-new-with-deck`, "");
+    return this.http.post<GameStateDto>(`${this.gameAPIURL}/start-new-with-deck`, "");
   }
 
 
@@ -39,8 +39,8 @@ export class GameService {
     return this.http.post<void>(`http://localhost:8080/api/cards-on-board/add-to/${gameId}`, cards);
   }
 
-  getExistingGameState(gameId : number): Observable<GameInitDto> {
-    return this.http.get<GameInitDto>(`http://localhost:8080/api/game/start/${gameId}`);
+  getExistingGameState(gameId : number): Observable<GameStateDto> {
+    return this.http.get<GameStateDto>(`http://localhost:8080/api/game/start/${gameId}`);
   }
 
   initializeGame(deck : Card[]) : void {

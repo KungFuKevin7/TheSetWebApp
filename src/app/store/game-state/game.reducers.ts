@@ -4,7 +4,7 @@ import {
   endGame,
   loadUserGames,
   loadUserGamesFailure,
-  loadUserGamesSuccess, selectGame, startExistingGame, startExistingGameSuccess,
+  loadUserGamesSuccess, selectGame, setGameStats, startExistingGame, startExistingGameSuccess,
   startGame, startGameFailure, startGameSuccess,
   testAction
 } from './game.actions';
@@ -16,7 +16,8 @@ const initialState: GameState = {
   gameStatus : 'progress',
   isLoading : false,
   userGames : [],
-  error : ''
+  error : '',
+  gameStats: undefined
 }
 
 export const gameReducer = createReducer(
@@ -37,9 +38,10 @@ export const gameReducer = createReducer(
   on(startExistingGame, (state, {gameId})=>({
     ...state,
   })),
-  on(startExistingGameSuccess, (state, {gameId})=>({
+  on(startExistingGameSuccess, (state, {gameId, gameStats})=>({
     ...state,
     currentGameId : gameId,
+    gameStats : gameStats
   })),
   on(endGame, (state)=>({
     ...state,
@@ -62,6 +64,10 @@ export const gameReducer = createReducer(
     ...state,
     isLoading: false,
     error: error
+  })),
+  on(setGameStats, (state, {gameStats})=>({
+    ...state,
+    gameStats : gameStats
   })),
 
   //TEST

@@ -2,29 +2,31 @@
   <div class="container text-center">
     <h4>Game Stats</h4>
     <br>
-    <div class="row">
-      Time elapsed:
-      <p class="fw-bold">
-        {{timeElapsed}}
-      </p>
-    </div>
+    <ng-container *ngIf="gameStats$ | async as gameStats">
+      <div class="row">
+        Cards Remaining In Deck:
+        <p class="fw-bold">
+          {{gameStats.cardsRemainingInDeck}}
+        </p>
+      </div>
 
-    <br>
+      <br>
 
-    <div class="row">
-      Sets found:
-      <p class="fw-bold">
-        {{setsFound}}
-      </p>
-    </div>
+      <div class="row">
+        Sets found:
+        <p class="fw-bold">
+          {{gameStats.foundSetsOnTable || 0}}
+        </p>
+      </div>
 
-    <br>
+      <br>
 
-    <div class="row">
-      Available sets on table:
-      <p class="fw-bold">
-        {{availableSets}}
-      </p>
-    </div>
+      <div class="row">
+        Possible sets on table:
+        <p class="fw-bold">
+          {{gameStats.possibleSetsOnTable}}
+        </p>
+      </div>
+    </ng-container>
   </div>
 </div>

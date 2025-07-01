@@ -5,8 +5,6 @@ import {GameStatsComponent} from '../game-stats/game-stats.component';
 import {UserOptionsComponent} from '../user-options/user-options.component';
 import {FoundSetsComponent} from '../found-sets/found-sets.component';
 import {CommonModule} from '@angular/common';
-import {CardStackComponent} from '../card-stack/card-stack.component';
-import {StackOverviewComponent} from '../card-stack/stack-overview/stack-overview.component';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {HintComponent} from '../hint/hint.component';
@@ -20,7 +18,7 @@ import {Card} from '../../../models/Card';
     PlayingTableComponent,
     GameStatsComponent,
     UserOptionsComponent,
-    FoundSetsComponent, CommonModule, CardStackComponent, StackOverviewComponent, HintComponent
+    FoundSetsComponent, CommonModule, HintComponent
   ],
   templateUrl: './game-page.component.html',
   styleUrl: './game-page.component.css'
