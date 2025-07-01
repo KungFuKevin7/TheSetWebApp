@@ -17,13 +17,17 @@ import {AsyncPipe, NgIf} from '@angular/common';
   templateUrl: './game-stats.component.html',
   styleUrl: './game-stats.component.css'
 })
-export class GameStatsComponent {
+export class GameStatsComponent implements OnInit {
 
-
-  gameStats$ : Observable<GameStatsDto | undefined>;
+  gameStats$? : Observable<GameStatsDto | undefined>;
 
   constructor(private store : Store) {
+ }
+
+  ngOnInit(): void {
     this.gameStats$ = this.store.select(selectGameStats);
   }
+
+
 
 }

@@ -24,7 +24,6 @@ export class GameStateEffects {
               private router : Router,
               private store : Store){}
 
-
   //Start Game
   startGame$ = createEffect(
     () =>
@@ -55,32 +54,6 @@ export class GameStateEffects {
       ),
     { functional: true, dispatch: false }
   );
-
-/*  drawInitialCardsFromDeck$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(setDeck),
-        map(({ deck }) => {
-            const firstDraw = deck.slice(0,12);
-            this.store.dispatch(drawInitialCardsFromDeck(
-              {boardCards : firstDraw})
-            );
-        })
-      ),
-      {functional:true, dispatch:false}
-    );*/
-/*
-  addCardsOnBoard$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(drawInitialCardsFromDeck),
-        withLatestFrom(this.store.select(selectCardsOnBoard), this.store.select(selectCurrentGameId)),
-        map(([action, boardCards, gameId]) => {
-          console.log("Hi Hi")
-          this.gameService.updateCardsOnBoard(boardCards, gameId).subscribe()
-        })
-      ),{functional: true, dispatch: false}
-  );*/
 
   //ExistingGame
   startExistingGame$ = createEffect(

@@ -14,6 +14,7 @@ import {validateSet, validateSetFailure, validateSetSuccess} from './set.actions
 import {SetService} from '../../services/set.service';
 import {selectCurrentGameId} from '../game-state/game.selectors';
 import {setDeck} from '../cards-state/cards.actions';
+import {setGameStats} from '../game-state/game.actions';
 
 @Injectable()
 export class SetEffects {
@@ -46,6 +47,7 @@ export class SetEffects {
             mergeMap(({deckCards, cardsOnBoard, gameStats}) => [
               addCardsToBoard({cards : cardsOnBoard}),
               setDeck({deck: deckCards}),
+              setGameStats({gameStats: gameStats}),
               resetSelection()
           ]),
           catchError(error =>

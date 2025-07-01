@@ -3,7 +3,7 @@ import {Card} from '../../../models/Card';
 import {DeckCardDto} from '../../dto/DeckCardDto';
 
 export interface SetState {
-  foundSets : Set[];
+  foundSets : Set[]; //<--SetDto
   cardsToCheck: DeckCardDto[]
   loading: boolean;
   error: string | undefined;

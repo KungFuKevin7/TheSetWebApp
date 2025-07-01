@@ -15,6 +15,6 @@ export class SetService {
   constructor(private http : HttpClient) { }
 
   validateSet(cards : DeckCardDto[], gameId : number) {
-    return this.http.post<GameStateDto>(`${this.setAPIURL}/validate-for-game/${gameId}`, cards);
+    return this.http.post<GameStateDto>(`${this.setAPIURL}/handle-validation-with-new-board/${gameId}`, cards);
   }
 }

@@ -53,7 +53,7 @@ export const gameReducer = createReducer(
   on(selectGame,(state, {game})=>({
     ...state,
     currentGame : game,
-    isLoading : false,
+    isLoading : false
   })),
   on(loadUserGamesSuccess, (state, {games})=>({
     ...state,
@@ -69,6 +69,7 @@ export const gameReducer = createReducer(
     ...state,
     gameStats : gameStats
   })),
+
 
   //TEST
   on(testAction, (state) =>({

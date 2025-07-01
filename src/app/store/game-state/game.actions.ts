@@ -64,7 +64,8 @@ export const startExistingGameFailure = createAction(
 
 export const startExistingGameSuccess = createAction(
   '[Game] Select Existing Game',
-  props<{gameId: number,
+  props<{
+    gameId: number,
     deck : DeckCardDto[],
     cardsOnBoard : DeckCardDto[],
     gameStats : GameStatsDto}>()
