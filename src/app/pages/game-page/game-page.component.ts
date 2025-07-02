@@ -1,5 +1,4 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {GameHistoryComponent} from "../game-history/game-history.component";
 import {PlayingTableComponent} from '../playing-table/playing-table.component';
 import {GameStatsComponent} from '../game-stats/game-stats.component';
 import {UserOptionsComponent} from '../user-options/user-options.component';
@@ -14,7 +13,6 @@ import {Card} from '../../../models/Card';
   selector: 'app-game-page',
   standalone: true,
   imports: [
-    GameHistoryComponent,
     PlayingTableComponent,
     GameStatsComponent,
     UserOptionsComponent,

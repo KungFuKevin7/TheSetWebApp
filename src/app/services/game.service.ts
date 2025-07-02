@@ -19,39 +19,18 @@ export class GameService {
   constructor(private http : HttpClient) {
   }
 
-  startGame()
-  {
-    return this.http.post<Game>(`${this.gameAPIURL}/start-new`, "");
-  }
-
   startGameWithDeck(): Observable<GameStateDto>
   {
     return this.http.post<GameStateDto>(`${this.gameAPIURL}/start-new-with-deck`, "");
   }
-
 
   getGamesFromUser()
   {
     return this.http.get<Game[]>(`${this.gameAPIURL}/by-user`);
   }
 
-  updateCardsOnBoard(cards : any, gameId : number) : Observable<void> {
-    return this.http.post<void>(`http://localhost:8080/api/cards-on-board/add-to/${gameId}`, cards);
-  }
-
   getExistingGameState(gameId : number): Observable<GameStateDto> {
     return this.http.get<GameStateDto>(`http://localhost:8080/api/game/start/${gameId}`);
   }
 
-  initializeGame(deck : Card[]) : void {
-    //this.actions.initialize(deck);
-  }
-
-  selectCard(selectedCard : Card) : void {
-    //this.actions.selectCard(selectedCard);
-  }
-
-  finalizeGame(): void {
-    //this.actions.finalizeGame();
-  }
 }

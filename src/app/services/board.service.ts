@@ -10,17 +10,6 @@ import {DeckCardDto} from '../dto/DeckCardDto';
 export class BoardService {
 
   constructor(private http: HttpClient) { }
-/*
-
-  getTablePlayingCards() : Observable<Card[]> {
-
-    return this.http.get<Card[]>("http://localhost:8080/api/cards/shuffled")
-  }
-
-  checkIfSet(possibleSetCards: Card[]){
-    return this.http.post<boolean>("http://localhost:8080/api/check-set", possibleSetCards);
-  }
-*/
 
   getSetHint(gameId : number){
     return this.http.post<DeckCardDto[]>(`http://localhost:8080/api/hint/${gameId}`, "");
