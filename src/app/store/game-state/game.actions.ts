@@ -4,7 +4,6 @@ import {Game} from '../../../models/Game';
 import {Users} from '../../../models/Users';
 import {DeckCardDto} from '../../dto/DeckCardDto';
 import {GameStatsDto} from '../../dto/GameStatsDto';
-import {SetDto} from '../../dto/SetDto';
 
 export const testAction = createAction(
   '[Game Page] Test Action'

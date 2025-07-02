@@ -10,7 +10,7 @@ import {
   selectCard
 } from '../board-state/board.actions';
 import {selectCardsOnBoard, selectSelectedCards} from '../board-state/board.selector';
-import {setFoundSets, validateSet, validateSetFailure, validateSetSuccess} from './set.actions';
+import {validateSet, validateSetFailure, validateSetSuccess} from './set.actions';
 import {SetService} from '../../services/set.service';
 import {selectCurrentGameId} from '../game-state/game.selectors';
 import {setDeck} from '../cards-state/cards.actions';
@@ -44,11 +44,10 @@ export class SetEffects {
       ofType(validateSet),
         mergeMap(({cards, gameId})=>
           this.setService.validateSet(cards, gameId).pipe(
-            mergeMap(({deckCards, cardsOnBoard, gameStats, foundSets}) => [
+            mergeMap(({deckCards, cardsOnBoard, gameStats}) => [
               addCardsToBoard({cards : cardsOnBoard}),
               setDeck({deck: deckCards}),
               setGameStats({gameStats: gameStats}),
-              setFoundSets({foundSets : foundSets}),
               resetSelection()
           ]),
           catchError(error =>

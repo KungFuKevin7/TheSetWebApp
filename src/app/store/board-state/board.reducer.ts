@@ -18,8 +18,10 @@ import {startExistingGameSuccess} from '../game-state/game.actions';
 
 const initialState : BoardState = {
   cardsOnBoard : [],
+  //foundSets : [],
   hintedCards : [],
-  selectedCards : []
+  selectedCards : [],
+  possibleSets : []
 }
 
 export const boardReducer = createReducer(
@@ -50,6 +52,15 @@ export const boardReducer = createReducer(
   on(validateSetFailed, (state, {error}) => ({
     ...state,
     selectedCards: [],
+    error: error
+  })),
+
+  on(getPossibleSets, (state, {sets}) =>({
+    ...state,
+    possibleSets: sets
+  })),
+  on(getPossibleSetsFailure, (state, {error}) => ({
+    ...state,
     error: error
   })),
 
