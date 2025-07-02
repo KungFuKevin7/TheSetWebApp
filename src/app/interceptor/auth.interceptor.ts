@@ -1,6 +1,13 @@
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpInterceptorFn, HttpRequest} from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpInterceptorFn,
+  HttpRequest
+} from '@angular/common/http';
 import {AuthService} from '../services/auth.service';
-import {Observable} from 'rxjs';
+import {catchError, Observable, throwError} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 
@@ -15,7 +22,6 @@ export class authInterceptor implements HttpInterceptor {
       const authToken = this.authService.getAuthToken();
 
       //Check if token is still valid before requesting resource
-      if (!this.authService.tokenIsExpired()) {
         if (authToken != null) {
           const authReq =  req.clone(
             {
@@ -24,16 +30,16 @@ export class authInterceptor implements HttpInterceptor {
               }
             });
 
-          return next.handle(authReq);
+          return next.handle(authReq).pipe(
+            catchError( err => {
+              if (err instanceof HttpErrorResponse && err.status === 401) {
+                alert("Session ended.");
+                this.authService.logout();
+              }
+                return throwError(() => err);
+            })
+          )
         }
-      }
-
-      //Remove current session and lead to login page
-      else{
-        this.authService.logout();
-        this.router.navigate(["/"]);
-      }
-
       return next.handle(req);
     }
 }
