@@ -5,6 +5,7 @@ import {Users} from '../../../models/Users';
 import {FormsModule} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {resetUserGames} from '../../store/game-state/game.actions';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -33,12 +34,23 @@ export class LoginComponent implements OnInit {
     }
   }
 
-
   login(){
-
     console.log(this.user.getUsername() + " " + this.user.getPassword());
     this.authService.login(
       new Users(this.user.getUsername(), this.user.getPassword()))
-      .subscribe();
+      .subscribe({ next: (result) => {
+      },
+      error: (err: HttpErrorResponse)=> {
+        if (err.status === 400) {
+          alert('Invalid username or password');
+        }
+        if (err.status === 500) {
+          alert('Error on the server. Apollos');
+        }
+        else {
+          alert('An unexpected error occurred. Please try again later.');
+        }
+      }
+    });
   }
 }
