@@ -1,7 +1,7 @@
 import {BoardState} from '../board-state/BoardState';
 import {createReducer, on} from '@ngrx/store';
 import {SetState} from './SetState';
-import {loadFoundSets, validateSet, validateSetFailure, validateSetSuccess} from './set.actions';
+import {loadFoundSets, setFoundSets, validateSet, validateSetFailure, validateSetSuccess} from './set.actions';
 
 const initialState : SetState = {
   foundSets : [],
@@ -19,8 +19,11 @@ export const setReducer = createReducer(
     ...state,
     loading: true,
     cardsToCheck: cards
-    //Cards will be used in the Effects not the Reducer
   })),
+ on(setFoundSets, (state, {foundSets}) => ({
+   ...state,
+   foundSets: foundSets
+ })),
 /*  on(validateSetSuccess, (state, {validSet}) => ({
     ...state,
     loading: true,

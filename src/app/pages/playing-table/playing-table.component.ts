@@ -27,19 +27,12 @@ import {deselectCard, selectCard} from '../../store/board-state/board.actions';
   templateUrl: './playing-table.component.html',
   styleUrl: './playing-table.component.css'
 })
-export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
-
-  //All cards on the table
-  @Input() playingCards: any = [];
-
-  //public playingCards$ = this.store.select(selectCards);
+export class PlayingTableComponent implements OnInit {
 
   //Cards that are selected for review
-
   currentGame$?: Observable<number | undefined>;
   currentDeck$?: Observable<Card[]>;
   currentCardsOnBoard$?: Observable<DeckCardDto[]>;
-  triggerDeselect : boolean = false;
   selectedCards$?: Observable<Card[]>; //this.store.select(selectSelectedCards);
   hintedCards$?: Observable<Card[]>;
 
@@ -54,7 +47,7 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
     this.selectedCards$ = this.store.select(BoardSelectors.selectSelectedCards);
     this.hintedCards$ = this.store.select(BoardSelectors.selectHintedCards);
 
-    this.currentCardsOnBoard$.subscribe(
+/*    this.currentCardsOnBoard$.subscribe(
       p => console.log(p)
     );
 
@@ -64,7 +57,7 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
 
     this.hintedCards$.subscribe(
       p => console.log(p)
-    );
+    );*/
   }
 
   clickCard(card : DeckCardDto){
@@ -77,35 +70,8 @@ export class PlayingTableComponent implements OnInit, OnChanges, AfterViewInit {
     });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-
-  }
-
-  ngAfterViewInit() {
-
-  }
-
-  checkSet(){
-    //send to api for review
- /*   this.playingTableService.checkIfSet(this.selectedCards).subscribe(
-      response => {
-        if (response){
-          this.handleTriggerDeselect();
-          console.log("is set!");
-        }if (!response){
-          this.handleTriggerDeselect();
-          console.log("is no set");
-        }
-        this.selectedCards = [];
-      }
-    );*/
-  }
   isHinted(cardId: number, hintedCards: Card[]): boolean {
     return hintedCards.some(h => h.cardId === cardId);
-  }
-
-  handleTriggerDeselect(){
-    this.triggerDeselect = !this.triggerDeselect;
   }
 
 }

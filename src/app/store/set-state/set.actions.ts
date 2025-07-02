@@ -31,3 +31,7 @@ export const validateSetFailure = createAction(
   '[Set] Validate Set Failure',
   props<{error: string}>()
 )
+export const setFoundSets = createAction(
+  '[Set] Set Found Sets',
+  props<{foundSets : SetDto[]}>()
+)

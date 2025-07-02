@@ -75,3 +75,9 @@ export const setGameStats = createAction(
   '[Game] Select Game Stats',
   props<{gameStats : GameStatsDto}>()
 )
+
+export const checkStatus = createAction(
+  '[Set] Check Status',
+  props<{status : string}>()
+)
+

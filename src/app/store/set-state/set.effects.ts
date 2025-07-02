@@ -10,18 +10,20 @@ import {
   selectCard
 } from '../board-state/board.actions';
 import {selectCardsOnBoard, selectSelectedCards} from '../board-state/board.selector';
-import {validateSet, validateSetFailure, validateSetSuccess} from './set.actions';
+import {setFoundSets, validateSet, validateSetFailure, validateSetSuccess} from './set.actions';
 import {SetService} from '../../services/set.service';
 import {selectCurrentGameId} from '../game-state/game.selectors';
 import {setDeck} from '../cards-state/cards.actions';
-import {setGameStats} from '../game-state/game.actions';
+import {checkStatus, setGameStats} from '../game-state/game.actions';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class SetEffects {
 
   constructor(private actions$ : Actions,
               private store : Store,
-              private setService : SetService) {}
+              private setService : SetService,
+              private router : Router,) {}
 
   validateSetWhenThreeSelected$ = createEffect(() =>
     this.actions$.pipe(
@@ -44,10 +46,12 @@ export class SetEffects {
       ofType(validateSet),
         mergeMap(({cards, gameId})=>
           this.setService.validateSet(cards, gameId).pipe(
-            mergeMap(({deckCards, cardsOnBoard, gameStats}) => [
+            mergeMap(({deckCards, cardsOnBoard, gameStats, foundSets, status}) => [
               addCardsToBoard({cards : cardsOnBoard}),
               setDeck({deck: deckCards}),
               setGameStats({gameStats: gameStats}),
+              setFoundSets({foundSets: foundSets}),
+              checkStatus({status: status}),
               resetSelection()
           ]),
           catchError(error =>
@@ -68,5 +72,19 @@ export class SetEffects {
       )
     )
   )
+
+  gameCompleted$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(checkStatus),
+        tap(({ status }) => {
+          if (status === 'Completed') {
+            alert("You won!");
+            this.router.navigate(['/select-game']);
+          }
+        })
+      ),
+    { functional: true, dispatch: false }
+  );
 
 }

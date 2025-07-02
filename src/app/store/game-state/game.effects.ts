@@ -16,6 +16,7 @@ import {removeCardsFromDeck, setDeck} from '../cards-state/cards.actions';
 import {drawInitialCardsFromDeck} from '../board-state/board.actions';
 import {selectCurrentGameId} from './game.selectors';
 import {selectCardsOnBoard} from '../board-state/board.selector';
+import {setFoundSets} from '../set-state/set.actions';
 
 @Injectable()
 export class GameStateEffects {
@@ -36,6 +37,7 @@ export class GameStateEffects {
                 setDeck({deck: gameStateDto.deckCards}),
                 drawInitialCardsFromDeck({boardCards: gameStateDto.cardsOnBoard}),
                 setGameStats({gameStats: gameStateDto.gameStats}),
+                setFoundSets({foundSets: gameStateDto.foundSets}),
               ]),
             catchError(error =>
               of(startGameFailure({error: error}))),
@@ -69,6 +71,7 @@ export class GameStateEffects {
                 cardsOnBoard: gameData.cardsOnBoard,
                 gameStats: gameData.gameStats
               }),
+              setFoundSets({foundSets : gameData.foundSets})
             ]),
             catchError(error => of(loadUserGamesFailure({error: error}))),
           )

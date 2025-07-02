@@ -1,43 +1,33 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AsyncPipe, CommonModule, NgFor} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {FoundSetItemComponent} from './found-set-item/found-set-item.component';
+import {selectFoundSets} from '../../store/set-state/set.selector';
+import {Store} from '@ngrx/store';
+import {SetDto} from '../../dto/SetDto';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-found-sets',
   standalone: true,
-  imports: [],
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    CommonModule,
+    NgFor,
+    FoundSetItemComponent
+  ],
   templateUrl: './found-sets.component.html',
   styleUrl: './found-sets.component.css'
 })
-export class FoundSetsComponent {
-  foundSets : any = [
-    {
-      card1: "A",
-      card2: "A",
-      card3: "A",
-    },
-    {
-      card1: "B",
-      card2: "B",
-      card3: "B",
-    },
-    {
-      card1: "C",
-      card2: "C",
-      card3: "C",
-    },
-    {
-      card1: "D",
-      card2: "D",
-      card3: "D",
-    },
-    {
-      card1: "E",
-      card2: "E",
-      card3: "E",
-    },
-    {
-      card1: "F",
-      card2: "F",
-      card3: "F",
-    },
-  ];
+export class FoundSetsComponent implements OnInit {
+
+  foundSets$?: Observable<SetDto[]>;
+
+  constructor(private store: Store) {
+  }
+
+  ngOnInit() {
+    this.foundSets$ = this.store.select(selectFoundSets);
+  }
 }
