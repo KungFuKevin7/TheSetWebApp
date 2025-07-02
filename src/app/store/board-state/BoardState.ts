@@ -6,6 +6,4 @@ export interface BoardState {
   cardsOnBoard: DeckCardDto[];
   selectedCards: DeckCardDto[];
   hintedCards: DeckCardDto[];
-  //foundSets : Set[];
-  possibleSets: Set[];
 }

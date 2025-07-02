@@ -18,8 +18,3 @@ export const selectHintedCards = createSelector(
   (state) => state.hintedCards
 )
 
-export const selectPossibleSets = createSelector(
-  cardsStateSelector,
-  (state) => state.possibleSets
-)
-

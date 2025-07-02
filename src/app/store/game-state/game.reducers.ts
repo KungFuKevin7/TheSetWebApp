@@ -8,9 +8,6 @@ import {
   startGame, startGameFailure, startGameSuccess,
   testAction
 } from './game.actions';
-import {state} from '@angular/animations';
-import {loadDeckFailure} from '../cards-state/cards.actions';
-
 const initialState: GameState = {
   currentGameId : 0,
   gameStatus : 'progress',

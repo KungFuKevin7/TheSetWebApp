@@ -1,14 +1,14 @@
 <div class="container">
   <div class="container-stats">
     <h1 class="text-center">Found Sets:</h1>
-    <div class="row">
-      @for (i of foundSets;track i;){
-        <div class="col-sm-1">
-          {{i.card1}}<br>
-          {{i.card2}}<br>
-          {{i.card3}}<br>
+    <div class="found-set-list">
+      <div *ngFor="let set of foundSets$ | async;">
+
+        <div class="col-sm-2">
+          <app-found-set-item [set]="set"></app-found-set-item>
         </div>
-      }
+
+      </div>
     </div>
   </div>
 </div>
