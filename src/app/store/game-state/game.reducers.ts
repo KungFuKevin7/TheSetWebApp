@@ -1,19 +1,16 @@
-import {createFeature, createReducer, on} from '@ngrx/store';
+import {createReducer, on} from '@ngrx/store';
 import {GameState} from './GameState';
 import {
   endGame,
   loadUserGames,
   loadUserGamesFailure,
-  loadUserGamesSuccess, selectGame, setGameStats, startExistingGame, startExistingGameSuccess,
+  loadUserGamesSuccess, resetUserGames, selectGame, setGameStats, startExistingGame, startExistingGameSuccess,
   startGame, startGameFailure, startGameSuccess,
   testAction
 } from './game.actions';
-import {state} from '@angular/animations';
-import {loadDeckFailure} from '../cards-state/cards.actions';
 
 const initialState: GameState = {
   currentGameId : 0,
-  gameStatus : 'progress',
   isLoading : false,
   userGames : [],
   error : '',
@@ -28,8 +25,7 @@ export const gameReducer = createReducer(
   on(startGameSuccess,(state, {gameId})=>({
       ...state,
     currentGameId : gameId,
-    isLoading : false,
-    gameStatus : 'progress'
+    isLoading : false
   })),
   on(startGameFailure, (state, {error}) => ({
     ...state,
@@ -69,7 +65,10 @@ export const gameReducer = createReducer(
     ...state,
     gameStats : gameStats
   })),
-
+  on(resetUserGames, (state) =>({
+    ...state,
+    userGames: []
+  })),
 
   //TEST
   on(testAction, (state) =>({

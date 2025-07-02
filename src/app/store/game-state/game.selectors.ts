@@ -8,11 +8,6 @@ export const selectCurrentGameId = createSelector(
   state => state.currentGameId
 );
 
-export const selectGameStatus = createSelector(
-  gameFeatureSelector,
-  state => state.gameStatus
-);
-
 export const selectGamesOfUser = createSelector(
   gameFeatureSelector,
   state => state.userGames

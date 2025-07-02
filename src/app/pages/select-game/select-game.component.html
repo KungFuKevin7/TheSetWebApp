@@ -6,10 +6,8 @@
   <div *ngFor="let game of games$ | async" (click)="onExistingGameClick(game)">
       <div class="card">
         <h2>Game: {{game.game_id}}</h2>
-        <h4>Stats</h4>
+        <br>
         <p>Status: {{game.status}}</p>
-        <p>Sets Found: {{game.sets_found}}</p>
-        <p>Time: {{game.elapsed_time}}</p>
         <p>Created At: {{game.created_at}}</p>
       </div>
     <br>
