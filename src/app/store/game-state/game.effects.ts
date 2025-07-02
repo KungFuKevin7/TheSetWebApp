@@ -3,6 +3,7 @@ import {Store} from '@ngrx/store';
 import {GameService} from '../../services/game.service';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {
+  checkStatus,
   loadUserGames,
   loadUserGamesFailure,
   loadUserGamesSuccess, setGameStats, startExistingGame, startExistingGameSuccess,
@@ -71,7 +72,8 @@ export class GameStateEffects {
                 cardsOnBoard: gameData.cardsOnBoard,
                 gameStats: gameData.gameStats
               }),
-              setFoundSets({foundSets : gameData.foundSets})
+              setFoundSets({foundSets : gameData.foundSets}),
+              checkStatus({status: gameData.status}),
             ]),
             catchError(error => of(loadUserGamesFailure({error: error}))),
           )

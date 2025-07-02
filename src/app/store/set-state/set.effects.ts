@@ -79,7 +79,7 @@ export class SetEffects {
         ofType(checkStatus),
         tap(({ status }) => {
           if (status === 'Completed') {
-            alert("You won!");
+            alert("Game Is finished!");
             this.router.navigate(['/select-game']);
           }
         })
